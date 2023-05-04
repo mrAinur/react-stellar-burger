@@ -74,5 +74,5 @@ export default function IngredientsBoxScroll(props) {
 }
 
 IngredientsBoxScroll.propTypes = {
-    data: PropTypes.arrayOf(PropTypes.objectOf(ingredientPropType)).isRequired
+    data: PropTypes.arrayOf(ingredientPropType).isRequired
 };

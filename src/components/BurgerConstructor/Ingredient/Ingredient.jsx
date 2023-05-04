@@ -19,5 +19,5 @@ export default function Ingredient(props) {
 }
 
 Ingredient.propTypes = {
-    card: PropTypes.objectOf(ingredientPropType).isRequired
+    card: ingredientPropType.isRequired
 };

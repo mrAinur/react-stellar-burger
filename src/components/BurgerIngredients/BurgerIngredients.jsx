@@ -12,7 +12,7 @@ export default function BurgerIngredients(props) {
         <ConstructorElement
           type="top"
           isLocked={true}
-          text="Краторная булка N-200i (верх)"
+          text={`${props.data[0].name} (верх)`}
           price={props.data[0].price}
           thumbnail={props.data[0].image}
         />
@@ -69,7 +69,7 @@ export default function BurgerIngredients(props) {
         <ConstructorElement
           type="bottom"
           isLocked={true}
-          text="Краторная булка N-200i (низ)"
+          text={`${props.data[0].name} (низ)`}
           price={props.data[0].price}
           thumbnail={props.data[0].image}
         />
@@ -80,5 +80,5 @@ export default function BurgerIngredients(props) {
 }
 
 BurgerIngredients.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.objectOf(ingredientPropType)).isRequired
+  data: PropTypes.arrayOf(ingredientPropType).isRequired
 };
