@@ -4,10 +4,6 @@ import PropTypes from "prop-types";
 
 export default function NavButtons(props) {
 
-    NavButtons.propTypes = {
-        scrollPosition: PropTypes.func.isRequired
-    };
-
     const [current, setCurrent] = React.useState('bun')
 
     React.useEffect(() => {
@@ -30,3 +26,7 @@ export default function NavButtons(props) {
 
     )
 }
+
+NavButtons.propTypes = {
+    scrollPosition: PropTypes.func.isRequired
+};

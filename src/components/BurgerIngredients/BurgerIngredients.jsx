@@ -6,10 +6,6 @@ import { ingredientPropType } from '../../utils/prop-types';
 
 export default function BurgerIngredients(props) {
 
-  BurgerIngredients.propTypes = {
-    data: PropTypes.arrayOf(PropTypes.objectOf(ingredientPropType)).isRequired
-  };
-
   return (
     <article className={` ${style.ingredientsInfo} mt-25 ml-5`}>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', alignItems: 'center' }}>
@@ -17,7 +13,7 @@ export default function BurgerIngredients(props) {
           type="top"
           isLocked={true}
           text="Краторная булка N-200i (верх)"
-          price={200}
+          price={props.data[0].price}
           thumbnail={props.data[0].image}
         />
         <div className={style.scrollBox}>
@@ -74,7 +70,7 @@ export default function BurgerIngredients(props) {
           type="bottom"
           isLocked={true}
           text="Краторная булка N-200i (низ)"
-          price={200}
+          price={props.data[0].price}
           thumbnail={props.data[0].image}
         />
       </div>
@@ -82,3 +78,7 @@ export default function BurgerIngredients(props) {
     </article>
   )
 }
+
+BurgerIngredients.propTypes = {
+  data: PropTypes.arrayOf(PropTypes.objectOf(ingredientPropType)).isRequired
+};

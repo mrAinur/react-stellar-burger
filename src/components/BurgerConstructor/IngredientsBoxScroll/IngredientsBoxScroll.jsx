@@ -6,10 +6,6 @@ import { ingredientPropType } from '../../../utils/prop-types'
 
 export default function IngredientsBoxScroll(props) {
 
-    IngredientsBoxScroll.propTypes = {
-        data: PropTypes.arrayOf(PropTypes.objectOf(ingredientPropType)).isRequired
-    };
-
     const ingredientsTypes = {
         bun: "bun",
         sauce: "sauce",
@@ -55,7 +51,7 @@ export default function IngredientsBoxScroll(props) {
     // Отрисовываем каждый ингредиент
     const getCard = (items) => {
         return items.map(item => {
-            return <Ingredient card={item} />
+            return <Ingredient card={item} key={item._id}/>
         })
     };
 
@@ -76,3 +72,7 @@ export default function IngredientsBoxScroll(props) {
         </div>
     )
 }
+
+IngredientsBoxScroll.propTypes = {
+    data: PropTypes.arrayOf(PropTypes.objectOf(ingredientPropType)).isRequired
+};

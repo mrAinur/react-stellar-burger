@@ -5,12 +5,8 @@ import { ingredientPropType } from '../../../utils/prop-types'
 
 export default function Ingredient(props) {
 
-    Ingredient.propTypes = {
-        card: PropTypes.objectOf(ingredientPropType).isRequired
-    };
-
     return (
-        <li className={style.card} key={props.card._id}>
+        <li className={style.card}>
             <Counter count={1} size="default" extraClass="m-1" />
             <img src={props.card.image} alt="Изображение ингредиента" className={style.img} />
             <div className={`${style.cost} mt-1`}>
@@ -21,3 +17,7 @@ export default function Ingredient(props) {
         </li>
     )
 }
+
+Ingredient.propTypes = {
+    card: PropTypes.objectOf(ingredientPropType).isRequired
+};

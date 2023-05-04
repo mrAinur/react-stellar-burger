@@ -9,10 +9,6 @@ export default function BurgerConstructor(props) {
 
   const [scroll, setScroll] = React.useState('bun');
 
-  BurgerConstructor.propTypes = {
-    data: PropTypes.arrayOf(PropTypes.objectOf(ingredientPropType)).isRequired
-  };
-
   return (
     <article>
       <h2 className="text text_type_main-large mt-10 ml-3">Соберите бургер</h2>
@@ -23,3 +19,7 @@ export default function BurgerConstructor(props) {
     </article>
   )
 }
+
+BurgerConstructor.propTypes = {
+  data: PropTypes.arrayOf(PropTypes.objectOf(ingredientPropType)).isRequired
+};
