@@ -1,9 +1,14 @@
 import React from 'react';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
+import PropTypes from "prop-types";
 
 export default function NavButtons(props) {
 
-    const [current, setCurrent] = React.useState('one')
+    NavButtons.propTypes = {
+        scrollPosition: PropTypes.func.isRequired
+    };
+
+    const [current, setCurrent] = React.useState('bun')
 
     React.useEffect(() => {
         props.scrollPosition(current)
@@ -12,13 +17,13 @@ export default function NavButtons(props) {
 
     return (
         <div style={{ display: 'flex' }}>
-            <Tab value="one" active={current === 'one'} onClick={setCurrent}>
+            <Tab value="bun" active={current === 'bun'} onClick={setCurrent}>
                 Булки
             </Tab>
-            <Tab value="two" active={current === 'two'} onClick={setCurrent}>
+            <Tab value="sauce" active={current === 'sauce'} onClick={setCurrent}>
                 Соусы
             </Tab>
-            <Tab value="three" active={current === 'three'} onClick={setCurrent}>
+            <Tab value="main" active={current === 'main'} onClick={setCurrent}>
                 Начинки
             </Tab>
         </div>
