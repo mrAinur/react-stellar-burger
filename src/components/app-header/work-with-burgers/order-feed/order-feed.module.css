@@ -1,0 +1,8 @@
+.button{
+    composes: button from "../burger-constructor/burger-constructor.module.css";
+}
+
+.paragraph{
+    composes: paragraph from "../burger-constructor/burger-constructor.module.css";
+    color: #8585AD;
+}

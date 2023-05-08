@@ -1,49 +1,30 @@
 import React from "react";
-import Header from "../AppHeader/Header";
-import GetBurger from "../GetBurger/GetBurger";
+import Header from "../app-header/header";
+import GetBurger from "../get-burger/get-burger";
+import { getInfo } from "../../utils/get-menu-info";
 
 function App() {
-  const getIngredientsInfo = "https://norma.nomoreparties.space/api/ingredients";
 
-  const [state, setState] = React.useState();
+  /*Реализация пролучения ингредиентов от сервера */
+  const [ingredients, setIngredients] = React.useState([]);
+
+  const getIngredients = async () => {
+    await getInfo()
+      .then(res => {
+        setIngredients(res.data)
+      })
+      .catch(rej => console.log(`Ошбика ${rej.status}`))
+  }
 
   React.useEffect(() => {
-    // const getIngredientsData = async () => {
-    //   setState({ ...state, isLloading: true });
-    //   const res = await fetch(getIngredientsInfo);
-    //   if (res.ok) {
-    //   } else {
-    //     return Promise.reject(`Ошибка ${res.status}`);
-    //   }
-    //   const data = await res.json();
-    //   setState({...state, isLoading: false, ingredientsData: data.data})
-    // }
-    // getIngredientsData();
-    fetch(getIngredientsInfo)
-      .then((res) => {
-        if (res.ok) {
-          return res = res.json();
-        } else {
-          return Promise.reject(`Ошибка ${res.status}`);
-        }
-      })
-      .then((res) => {
-        setState(
-          res.data
-        )
-      })
-      .catch((rej) => {
-        console.log(`Ошибка ${rej.status}`);
-      })
+    getIngredients()
   }, []);
-
-  console.log(state)
 
   return (
     <>
       <Header />
       <main>
-        <GetBurger data={state} />
+        {ingredients.length && <GetBurger data={ingredients} />}
       </main>
       <footer className="mt-10"></footer>
     </>
