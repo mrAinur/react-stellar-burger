@@ -5,11 +5,11 @@ import { ingredientPropType } from '../../../utils/prop-types'
 
 export default function Ingredient(props) {
 
-    const {onClose, onOpen, card} = props
+    const { onOpen, card } = props
 
     return (
         <li className={style.card} onClick={() => onOpen(card)}>
-            <Counter count={1} size="default" extraClass="m-1" onClick={() => onClose()}/>
+            <Counter count={1} size="default" extraClass="m-1" />
             <img src={card.image} alt="Изображение ингредиента" className={style.img} />
             <div className={`${style.cost} mt-1`}>
                 <p className="text text_type_main-default mr-2">{card.price}</p>

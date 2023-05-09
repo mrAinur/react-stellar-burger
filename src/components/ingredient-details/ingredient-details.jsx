@@ -1,15 +1,17 @@
 import style from './ingredient-details.module.css';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import PropTypes from "prop-types";
+import { ingredientPropType } from '../../utils/prop-types';
 
 export default function IngredientDetails(props) {
 
-    const {info} = props;
+    const {info, onClose} = props;
 
     return (
         <div className={style.popup}>
             <div className={`${style.head} mt-10`}>
                 <p className={`${style.title} text text_type_main-large`}>Детали ингредиента</p>
-                <CloseIcon type="primary" />
+                <CloseIcon type="primary" onClick={() => onClose()}/>
             </div>
             <img className={style.img} src={info.image_large} alt='Картинка ингредиента бургера' />
             <p className={`${style.info} text text_type_main-small mt-4`}>{info.name}</p>
@@ -34,3 +36,8 @@ export default function IngredientDetails(props) {
         </div>
     )
 }
+
+IngredientDetails.propTypes = {
+    info: ingredientPropType.isRequired,
+    onClose: PropTypes.func.isRequired
+};

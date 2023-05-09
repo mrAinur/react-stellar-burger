@@ -4,10 +4,12 @@ import NavButtons from './nav-buttons/nav-buttons';
 import style from './burger-constructor.module.css';
 import IngredientsBoxScroll from './ingredients-box-scroll/ingredients-box-scroll';
 import { ingredientPropType } from '../../utils/prop-types';
+import {ingredientsTypes} from './../../utils/constants';
+
 
 export default function BurgerConstructor(props) {
 
-  const [scroll, setScroll] = React.useState('bun');
+  const [scroll, setScroll] = React.useState(ingredientsTypes.bun);
 
   return (
     <article>

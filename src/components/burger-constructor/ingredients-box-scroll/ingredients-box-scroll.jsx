@@ -5,30 +5,20 @@ import PropTypes from "prop-types";
 import { ingredientPropType } from '../../../utils/prop-types';
 import Modal from '../../modal/modal';
 import IngredientDetails from '../../ingredient-details/ingredient-details';
+import {ingredientsTypes} from './../../../utils/constants';
 
 export default function IngredientsBoxScroll(props) {
 
     /*Реализация работы модальных окон */
-    const [state, setState] = React.useState(false);
-
     const [ingredientPopupInfo, setIngredientPopupInfo] = React.useState(null);
 
     const onClose = () => {
-        setState(false)
         setIngredientPopupInfo(null)
     }
 
     const onOpen = (item) => {
-        setState(true)
         setIngredientPopupInfo(item)
-    }
-
-    /* Задаём строковые значения повторяющихся элементов */
-    const ingredientsTypes = {
-        bun: "bun",
-        sauce: "sauce",
-        main: "main"
-    }
+    }    
 
     // Реализация скролла в меню ингредиентов
     const bunScroll = React.useRef();
@@ -89,9 +79,9 @@ export default function IngredientsBoxScroll(props) {
                     {getCard(main)}
                 </ul>
             </div>
-            {state &&
+            {ingredientPopupInfo &&
                 (<Modal onClose={onClose}>
-                    <IngredientDetails info={ingredientPopupInfo} />
+                    <IngredientDetails info={ingredientPopupInfo} onClose={onClose}/>
                 </Modal>)
             }
         </>

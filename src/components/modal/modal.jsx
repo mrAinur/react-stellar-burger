@@ -1,3 +1,4 @@
+import React from 'react';
 import style from './modal.module.css';
 import ModalOverlay from '../modal-overlay/modal-overlay';
 import ReactDOM from "react-dom";
@@ -9,24 +10,24 @@ export default function Modal(props) {
 
     const { children, onClose } = props;
 
-    const closePopup = () => {
-        document.removeEventListener("keydown", (e) => {
+    React.useEffect(() => {
+        document.addEventListener("keydown", (e) => {
             if (e.key === "Escape") {
-                closePopup()
+                onClose()
             }
         })
-        onClose()
-    }
-
-    document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape") {
-            closePopup()
+        return () => {
+            document.removeEventListener("keydown", (e) => {
+                if (e.key === "Escape") {
+                    onClose()
+                }
+            })
         }
-    })
+    }, [])
 
     return ReactDOM.createPortal(
         (
-            <div className={style.popupOpen} onClick={closePopup}>
+            <div className={style.popupOpen} onClick={() => onClose()}>
                 {children}
                 <ModalOverlay />
             </div>
