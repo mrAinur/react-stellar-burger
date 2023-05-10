@@ -8,7 +8,7 @@ export default function OrderDetails(props) {
     const {onClose, orderInfo} = props;
 
     return (
-        <div className={style.popup}>
+        <div className={style.popup}  onClick={e => e.stopPropagation()}>
             <div className={style.close}>
                 <CloseIcon type="primary" onClick={() => onClose()}/>
             </div>

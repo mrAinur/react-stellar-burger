@@ -8,7 +8,7 @@ export default function IngredientDetails(props) {
     const {info, onClose} = props;
 
     return (
-        <div className={style.popup}>
+        <div className={style.popup} onClick={e => e.stopPropagation()}>
             <div className={`${style.head} mt-10`}>
                 <p className={`${style.title} text text_type_main-large`}>Детали ингредиента</p>
                 <CloseIcon type="primary" onClick={() => onClose()}/>
