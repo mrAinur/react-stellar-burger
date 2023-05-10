@@ -1,16 +1,33 @@
-import styles from "./app.module.css";
-import { data } from "../../utils/data";
+import React from "react";
+import Header from "../app-header/header";
+import GetBurger from "../get-burger/get-burger";
+import { getInfo } from "../../utils/get-menu-info";
 
 function App() {
+
+  /*Реализация пролучения ингредиентов от сервера */
+  const [ingredients, setIngredients] = React.useState([]);
+
+  const getIngredients = async () => {
+    await getInfo()
+      .then(res => {
+        setIngredients(res.data)
+      })
+      .catch(rej => console.log(`Ошбика ${rej.status}`))
+  }
+
+  React.useEffect(() => {
+    getIngredients()
+  }, []);
+
   return (
-    <div className={styles.app}>
-      <pre style={{
-      	margin: "auto",
-      	fontSize: "1.5rem"
-      }}>
-      	Измените src/components/app/app.jsx и сохраните для обновления.
-      </pre>
-    </div>
+    <>
+      <Header />
+      <main>
+        {ingredients.length && <GetBurger data={ingredients} />}
+      </main>
+      <footer className="mt-10"></footer>
+    </>
   );
 }
 
