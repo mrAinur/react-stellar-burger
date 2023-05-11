@@ -11,17 +11,14 @@ export default function Modal(props) {
     const { children, onClose } = props;
 
     React.useEffect(() => {
-        document.addEventListener("keydown", (e) => {
+        function closePopup(e) {
             if (e.key === "Escape") {
                 onClose()
             }
-        })
+        }
+        document.addEventListener("keydown", closePopup);
         return () => {
-            document.removeEventListener("keydown", (e) => {
-                if (e.key === "Escape") {
-                    onClose()
-                }
-            })
+            document.removeEventListener("keydown", closePopup);
         }
     }, [])
 
