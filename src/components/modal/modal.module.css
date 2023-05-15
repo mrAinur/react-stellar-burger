@@ -1,0 +1,13 @@
+.popupOpen{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    min-width: 100%;
+    min-height: 100%;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    position: fixed;
+    z-index: 3;
+    top: 0;
+}

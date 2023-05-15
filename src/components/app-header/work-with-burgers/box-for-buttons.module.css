@@ -1,0 +1,17 @@
+.LogoAndButtons{
+    margin: 0;
+    padding: 0;
+    min-width: 765px;
+    max-height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+}
+
+.buttons{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+}
