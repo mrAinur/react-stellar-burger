@@ -28,6 +28,5 @@ export default function Ingredient(props) {
 
 Ingredient.propTypes = {
     card: ingredientPropType.isRequired,
-    onOpen: PropTypes.func.isRequired,
-    onClose: PropTypes.func.isRequired
+    onOpen: PropTypes.func.isRequired
 };
