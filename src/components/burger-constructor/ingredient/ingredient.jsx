@@ -1,15 +1,21 @@
 import style from './ingredient.module.css';
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from "prop-types";
-import { ingredientPropType } from '../../../utils/prop-types'
+import { ingredientPropType } from '../../../utils/prop-types';
+import { useDrag } from "react-dnd";
 
 export default function Ingredient(props) {
 
-    const { onOpen, card } = props
+    const { onOpen, card } = props;
+
+    const [, cardRef] = useDrag({
+        type: "ingredient",
+        item: {card}
+    });
 
     return (
-        <li className={style.card} onClick={() => onOpen(card)}>
-            <Counter count={1} size="default" extraClass="m-1" />
+        <li className={style.card} onClick={() => onOpen(card)} ref={cardRef}>
+            <Counter count={0} size="default" extraClass="m-1" />
             <img src={card.image} alt="Изображение ингредиента" className={style.img} />
             <div className={`${style.cost} mt-1`}>
                 <p className="text text_type_main-default mr-2">{card.price}</p>

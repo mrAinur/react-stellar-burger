@@ -1,105 +1,101 @@
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import style from './burger-ingredients.module.css';
 import OrderInfo from './order-info/order-info';
-import PropTypes from "prop-types";
-import { ingredientPropType } from '../../utils/prop-types';
-import React from 'react';
+import React, { useEffect } from 'react';
 import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
+import { useDispatch, useSelector } from 'react-redux';
+import { useDrop } from "react-dnd";
+import { addBun, addMain, deleteIngredient, getIngredientsInfo } from "./services/burger-ingredients";
 
 export default function BurgerIngredients(props) {
 
-  const [state, setState] = React.useState();
+  const { bun, main } = useSelector(state => ({
+    bun: state.ingredients.bun,
+    main: state.ingredients.main,
+  }))
 
-  const [orderInfo, setOrderInfo] = React.useState(null);
+  const dispatch = useDispatch()
+
+  const onDropHandler = (item) => {
+    switch (item.card.type) {
+      case "main":
+        return dispatch(addMain(item.card));
+      case "sauce":
+        return dispatch(addMain(item.card));
+      case "bun":
+        return dispatch(addBun(item.card));
+      default: console.log(`Ошибка данных ${item}`)
+    }
+  }
+
+  const [, dropTarget] = useDrop({
+    accept: "ingredient",
+    drop(item) {
+      onDropHandler(item);
+    },
+  });
+
+  const [state, setState] = React.useState();
 
   const onClose = () => {
     setState(false)
-    setOrderInfo(null)
   }
 
   const onOpen = (item) => {
     setState(true)
-    setOrderInfo(item)
+  }
+
+  useEffect(() => {
+    dispatch(getIngredientsInfo())
+  }, [])
+
+  const mainIngredients = (items) => {
+    return items.map((item, itemIndex) => {
+      return (
+        <>
+          <DragIcon type="primary" key={itemIndex} />
+          <ConstructorElement
+            text={item.name}
+            price={item.price}
+            thumbnail={item.image}
+            key={itemIndex}
+          />
+        </>
+      )
+    })
   }
 
   return (
     <article className={` ${style.ingredientsInfo} mt-25 ml-5`}>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', alignItems: 'center' }}>
-        <ConstructorElement
-          type="top"
-          isLocked={true}
-          text={`${props.data[0].name} (верх)`}
-          price={props.data[0].price}
-          thumbnail={props.data[0].image}
-        />
-        <div className={style.scrollBox}>
-          <DragIcon type="primary" />
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', alignItems: 'center' }} ref={dropTarget}>
+        <>
           <ConstructorElement
-            text={props.data[1].name}
-            price={props.data[1].price}
-            thumbnail={props.data[1].image}
+            type="top"
+            isLocked={true}
+            text={`${bun.name} (верх)`}
+            price={bun.price}
+            thumbnail={bun.image}
           />
-          <DragIcon type="primary" />
+          <div className={style.scrollBox}>
+            {
+              mainIngredients(main)
+            }
+          </div>
           <ConstructorElement
-            text={props.data[1].name}
-            price={props.data[1].price}
-            thumbnail={props.data[1].image}
+            type="bottom"
+            isLocked={true}
+            text={`${bun.name} (низ)`}
+            price={bun.price}
+            thumbnail={bun.image}
           />
-          <DragIcon type="primary" />
-          <ConstructorElement
-            text={props.data[1].name}
-            price={props.data[1].price}
-            thumbnail={props.data[1].image}
-          />
-          <DragIcon type="primary" />
-          <ConstructorElement
-            text={props.data[1].name}
-            price={props.data[1].price}
-            thumbnail={props.data[1].image}
-          />
-          <DragIcon type="primary" />
-          <ConstructorElement
-            text={props.data[1].name}
-            price={props.data[1].price}
-            thumbnail={props.data[1].image}
-          />
-          <DragIcon type="primary" />
-          <ConstructorElement
-            text={props.data[1].name}
-            price={props.data[1].price}
-            thumbnail={props.data[1].image}
-          />
-          <DragIcon type="primary" />
-          <ConstructorElement
-            text={props.data[1].name}
-            price={props.data[1].price}
-            thumbnail={props.data[1].image}
-          />
-          <DragIcon type="primary" />
-          <ConstructorElement
-            text={props.data[1].name}
-            price={props.data[1].price}
-            thumbnail={props.data[1].image}
-          />
-        </div>
-        <ConstructorElement
-          type="bottom"
-          isLocked={true}
-          text={`${props.data[0].name} (низ)`}
-          price={props.data[0].price}
-          thumbnail={props.data[0].image}
-        />
+        </>
       </div>
       <OrderInfo onOpen={onOpen} />
       {state &&
         <Modal onClose={onClose}>
-          <OrderDetails onClose={onClose} orderInfo={orderInfo} />
+          <OrderDetails onClose={onClose} />
         </Modal>}
     </article>
   )
 }
-
-BurgerIngredients.propTypes = {
-  data: PropTypes.arrayOf(ingredientPropType.isRequired).isRequired
-};

@@ -1,19 +1,31 @@
 import style from './order-info.module.css';
 import { CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from "prop-types";
+import { useDispatch, useSelector } from 'react-redux';
+import { getOrderInfo } from '../services/burger-ingredients';
 
 
-export default function OrderInfo(props) {
+export default function OrderInfo({ onOpen }) {
 
-    const { onOpen } = props;
+    const dispatch = useDispatch();
+
+    const { price, ingredientsId } = useSelector(state => ({ 
+        price: state.ingredients.fullPrice,
+        ingredientsId: state.ingredients.allProducts.map(item => item._id)
+    }));
+
+    const getOrder = () => {
+        dispatch(getOrderInfo(ingredientsId))
+        onOpen()
+    }
 
     return (
         <div className={`${style.orderInfo} mt-10 mr-4`}>
             <div className={`${style.paragraph} mr-10`}>
-                <p className="text text_type_digits-medium">610</p>
+                <p className="text text_type_digits-medium">{price}</p>
                 <CurrencyIcon type="primary" />
             </div>
-            <Button htmlType="button" type="primary" size="large" onClick={() => onOpen()}>
+            <Button htmlType="button" type="primary" size="large" onClick={getOrder}>
                 Оформить заказ
             </Button>
         </div>

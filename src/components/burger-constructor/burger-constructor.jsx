@@ -1,9 +1,7 @@
 import React from 'react';
-import PropTypes from "prop-types";
 import NavButtons from './nav-buttons/nav-buttons';
 import style from './burger-constructor.module.css';
 import IngredientsBoxScroll from './ingredients-box-scroll/ingredients-box-scroll';
-import { ingredientPropType } from '../../utils/prop-types';
 import {ingredientsTypes} from './../../utils/constants';
 
 
@@ -17,11 +15,7 @@ export default function BurgerConstructor(props) {
       <nav className="mt-5">
         <NavButtons scrollPosition={setScroll} />
       </nav>
-      <IngredientsBoxScroll data={props.data} scrollPosition={scroll} />
+      <IngredientsBoxScroll scrollPosition={scroll} />
     </article>
   )
 }
-
-BurgerConstructor.propTypes = {
-  data: PropTypes.arrayOf(ingredientPropType.isRequired).isRequired
-};
