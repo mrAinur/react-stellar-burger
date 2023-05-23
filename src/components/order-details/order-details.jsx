@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 
 export default function OrderDetails({onClose}) {
 
-    const orderNumber = useSelector(state => state.ingredients.orderNumber)
+    const orderNumber = useSelector(state => state.order.orderNumber)
 
     return (
         <div className={style.popup}  onClick={e => e.stopPropagation()}>

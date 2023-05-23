@@ -9,7 +9,7 @@ import { useSelector } from 'react-redux';
 
 export default function IngredientsBoxScroll(props) {
 
-    const {data, load} = useSelector(state => ({
+    const { data, load } = useSelector(state => ({
         data: state.ingredients.ingredients,
         load: state.ingredients.load
     }))
@@ -30,23 +30,22 @@ export default function IngredientsBoxScroll(props) {
     const mainScroll = React.useRef();
     const sauceCroll = React.useRef();
 
-    // const settingsScroll = (item) => {
-    //     item.scrollIntoView({
-    //         behavior: "smooth"
-    //     })
-    // };
-
-    // React.useEffect(() => {
-    //     switch (props.scrollPosition) {
-    //         case ingredientsTypes.bun: settingsScroll(bunScroll.current);
-    //             break;
-    //         case ingredientsTypes.sauce: settingsScroll(sauceCroll.current);
-    //             break;
-    //         case ingredientsTypes.main: settingsScroll(mainScroll.current);
-    //             break;
-    //         default: console.log(`Неверное значение => ${props.scrollPosition}`);
-    //     }
-    // }, [props.scrollPosition]);
+    React.useEffect(() => {
+        const settingsScroll = (item = bunScroll.current) => {
+            item && item.scrollIntoView({
+                behavior: "smooth"
+            })
+        };
+        switch (props.scrollPosition) {
+            case ingredientsTypes.bun: settingsScroll(bunScroll.current);
+                break;
+            case ingredientsTypes.sauce: settingsScroll(sauceCroll.current);
+                break;
+            case ingredientsTypes.main: settingsScroll(mainScroll.current);
+                break;
+            default: console.log(`Неверное значение => ${props.scrollPosition}`);
+        }
+    }, [props.scrollPosition]);
 
     // Фильтруем объект и получаем отдельно ингредиенты в соответствии с их типом
     const bun = React.useMemo(() => {

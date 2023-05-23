@@ -1,101 +1,27 @@
-import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import style from './burger-ingredients.module.css';
-import OrderInfo from './order-info/order-info';
 import React, { useEffect } from 'react';
-import Modal from '../modal/modal';
-import OrderDetails from '../order-details/order-details';
-import { useDispatch, useSelector } from 'react-redux';
-import { useDrop } from "react-dnd";
-import { addBun, addMain, deleteIngredient, getIngredientsInfo } from "./services/burger-ingredients";
+import NavButtons from './nav-buttons/nav-buttons';
+import style from './burger-ingredients.module.css';
+import IngredientsBoxScroll from './ingredients-box-scroll/ingredients-box-scroll';
+import { ingredientsTypes } from '../../utils/constants';
+import { getIngredientsInfo } from './services/burger-ingredients';
+import { useDispatch } from 'react-redux';
 
-export default function BurgerIngredients(props) {
 
-  const { bun, main } = useSelector(state => ({
-    bun: state.ingredients.bun,
-    main: state.ingredients.main,
-  }))
+export default function BurgerConstructor(props) {
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  const onDropHandler = (item) => {
-    switch (item.card.type) {
-      case "main":
-        return dispatch(addMain(item.card));
-      case "sauce":
-        return dispatch(addMain(item.card));
-      case "bun":
-        return dispatch(addBun(item.card));
-      default: console.log(`Ошибка данных ${item}`)
-    }
-  }
+  useEffect(() => { dispatch(getIngredientsInfo()) }, [])
 
-  const [, dropTarget] = useDrop({
-    accept: "ingredient",
-    drop(item) {
-      onDropHandler(item);
-    },
-  });
-
-  const [state, setState] = React.useState();
-
-  const onClose = () => {
-    setState(false)
-  }
-
-  const onOpen = (item) => {
-    setState(true)
-  }
-
-  useEffect(() => {
-    dispatch(getIngredientsInfo())
-  }, [])
-
-  const mainIngredients = (items) => {
-    return items.map((item, itemIndex) => {
-      return (
-        <>
-          <DragIcon type="primary" key={itemIndex} />
-          <ConstructorElement
-            text={item.name}
-            price={item.price}
-            thumbnail={item.image}
-            key={itemIndex}
-          />
-        </>
-      )
-    })
-  }
+  const [scroll, setScroll] = React.useState(ingredientsTypes.bun);
 
   return (
-    <article className={` ${style.ingredientsInfo} mt-25 ml-5`}>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', alignItems: 'center' }} ref={dropTarget}>
-        <>
-          <ConstructorElement
-            type="top"
-            isLocked={true}
-            text={`${bun.name} (верх)`}
-            price={bun.price}
-            thumbnail={bun.image}
-          />
-          <div className={style.scrollBox}>
-            {
-              mainIngredients(main)
-            }
-          </div>
-          <ConstructorElement
-            type="bottom"
-            isLocked={true}
-            text={`${bun.name} (низ)`}
-            price={bun.price}
-            thumbnail={bun.image}
-          />
-        </>
-      </div>
-      <OrderInfo onOpen={onOpen} />
-      {state &&
-        <Modal onClose={onClose}>
-          <OrderDetails onClose={onClose} />
-        </Modal>}
+    <article>
+      <h2 className="text text_type_main-large mt-10 ml-3">Соберите бургер</h2>
+      <nav className="mt-5">
+        <NavButtons scrollPosition={setScroll} />
+      </nav>
+      <IngredientsBoxScroll scrollPosition={scroll} />
     </article>
   )
 }
