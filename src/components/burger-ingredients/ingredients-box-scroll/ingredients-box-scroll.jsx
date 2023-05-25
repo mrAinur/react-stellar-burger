@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import style from './ingredients-box-scroll.module.css';
 import Ingredient from '../ingredient/ingredient';
 import PropTypes from "prop-types";
@@ -6,13 +6,16 @@ import Modal from '../../modal/modal';
 import IngredientDetails from '../../ingredient-details/ingredient-details';
 import { ingredientsTypes } from './../../../utils/constants';
 import { useSelector } from 'react-redux';
+import { IngredientsInfo } from '../../context/context';
 
 export default function IngredientsBoxScroll(props) {
 
-    const { data, load } = useSelector(state => ({
-        data: state.ingredients.ingredients,
-        load: state.ingredients.load
-    }))
+    const data = useContext(IngredientsInfo);
+
+    // const { data, load } = useSelector(state => ({
+    //     data: state.ingredients.ingredients,
+    //     load: state.ingredients.load
+    // }))
 
     /*Реализация работы модальных окон */
     const [ingredientPopupInfo, setIngredientPopupInfo] = React.useState(null);
@@ -69,7 +72,7 @@ export default function IngredientsBoxScroll(props) {
 
     return (
         <>
-            {!load && (<div className={style.scrollBox}>
+            {data && (<div className={style.scrollBox}>
                 <p ref={bunScroll} className="text text_type_main-default pt-10 mb-6">Булки</p>
                 <ul className={`${style.cards}`}>
                     {getCard(bun)}

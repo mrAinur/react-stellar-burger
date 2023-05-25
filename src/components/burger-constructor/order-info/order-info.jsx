@@ -3,29 +3,34 @@ import { CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-co
 import PropTypes from "prop-types";
 import { useDispatch, useSelector } from 'react-redux';
 import { getOrderInfo } from '../services/burger-ingredients';
+import React, { useContext } from 'react';
+import { ConstructorInfo } from '../../context/context';
 
 
 export default function OrderInfo({ onOpen }) {
 
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
 
-    const { price, ingredientsId } = useSelector(state => ({ 
-        price: state.order.fullPrice,
-        ingredientsId: state.order.allProducts.map(item => item._id)
-    }));
+    // const { price, ingredientsId } = useSelector(state => ({ 
+    //     price: state.order.fullPrice,
+    //     ingredientsId: state.order.allProducts.map(item => item._id)
+    // }));
 
-    const getOrder = () => {
-        dispatch(getOrderInfo(ingredientsId))
-        onOpen()
-    }
+    // const getOrder = () => {
+    //     dispatch(getOrderInfo(ingredientsId))
+    //     onOpen()
+    // }
+
+    const price = useContext(ConstructorInfo);
 
     return (
         <div className={`${style.orderInfo} mt-10 mr-4`}>
             <div className={`${style.paragraph} mr-10`}>
-                <p className="text text_type_digits-medium">{price}</p>
+                <p className="text text_type_digits-medium">{price.fullPrice}</p>
                 <CurrencyIcon type="primary" />
             </div>
-            <Button htmlType="button" type="primary" size="large" onClick={getOrder}>
+            {/* <Button htmlType="button" type="primary" size="large" onClick={getOrder}> */}
+            <Button htmlType="button" type="primary" size="large">
                 Оформить заказ
             </Button>
         </div>

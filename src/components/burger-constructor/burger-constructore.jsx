@@ -1,30 +1,76 @@
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import style from './burger-constructore.module.css';
 import OrderInfo from './order-info/order-info';
-import React from 'react';
+import React, { useContext } from 'react';
 import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
 import { useDispatch, useSelector } from 'react-redux';
 import { useDrop } from "react-dnd";
 import { addBun, addMain, deleteIngredient } from "./services/burger-ingredients";
+import { ConstructorInfo } from '../context/context';
+
+function reducer(state, action){
+  switch(action.type){
+    case "main": return {
+      ...state,
+      allProducts: [...state.allProducts, action.payload.card],
+      main: [...state.main, action.payload.card],
+      fullPrice: state.fullPrice += action.payload.card.price
+    }
+    case "sauce": return {
+      ...state,
+      allProducts: [...state.allProducts, action.payload.card],
+      main: [...state.main, action.payload.card],
+      fullPrice: state.fullPrice += action.payload.card.price
+    }
+    case "bun": return {
+      ...state,
+      bun: action.payload.card,
+      fullPrice: state.fullPrice += action.payload.card.price*2
+    }
+    default: console.log(`Ошибка типа данных ${action.payload}`)
+  }
+}
 
 export default function BurgerIngredients(props) {
 
-  const { bun, main } = useSelector(state => ({
-    bun: state.order.bun,
-    main: state.order.main,
-  }))
+  const initialState = useContext(ConstructorInfo);
 
-  const dispatch = useDispatch()
+  const [info, dispatch] = React.useReducer(reducer, initialState);
+
+  // const { bun, main } = useSelector(state => ({
+  //   bun: state.order.bun,
+  //   main: state.order.main,
+  // }))
+
+  // const dispatch = useDispatch()
 
   const onDropHandler = (item) => {
+    // switch (item.card.type) {
+    //   case "main":
+    //     return dispatch(addMain(item.card));
+    //   case "sauce":
+    //     return dispatch(addMain(item.card));
+    //   case "bun":
+    //     return dispatch(addBun(item.card));
+    //   default: console.log(`Ошибка данных ${item}`)
+    // }
     switch (item.card.type) {
       case "main":
-        return dispatch(addMain(item.card));
+        return dispatch({
+          type: "main",
+          payload: item
+        });
       case "sauce":
-        return dispatch(addMain(item.card));
+        return dispatch({
+          type: "main",
+          payload: item
+        });
       case "bun":
-        return dispatch(addBun(item.card));
+        return dispatch({
+          type: "bun",
+          payload: item
+        });
       default: console.log(`Ошибка данных ${item}`)
     }
   }
@@ -69,21 +115,21 @@ export default function BurgerIngredients(props) {
           <ConstructorElement
             type="top"
             isLocked={true}
-            text={`${bun.name} (верх)`}
-            price={bun.price}
-            thumbnail={bun.image}
+            text={`${info.bun.name} (верх)`}
+            price={info.bun.price}
+            thumbnail={info.bun.image}
           />
           <div className={style.scrollBox}>
             {
-              mainIngredients(main)
+              mainIngredients(info.main)
             }
           </div>
           <ConstructorElement
             type="bottom"
             isLocked={true}
-            text={`${bun.name} (низ)`}
-            price={bun.price}
-            thumbnail={bun.image}
+            text={`${info.bun.name} (низ)`}
+            price={info.bun.price}
+            thumbnail={info.bun.image}
           />
         </>
       </div>

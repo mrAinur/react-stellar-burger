@@ -12,7 +12,6 @@ const initialState = {
 
 export const getOrderInfo = createAsyncThunk("info/getOrderInfo", async (item) => {
   const orderInfo = await getOrder(item);
-  console.log(orderInfo.order.number)
   return orderInfo.order.number
 })
 
