@@ -9,8 +9,8 @@ import { useDrop } from "react-dnd";
 import { addBun, addMain, deleteIngredient } from "./services/burger-ingredients";
 import { ConstructorInfo } from '../context/context';
 
-function reducer(state, action){
-  switch(action.type){
+function reducer(state, action) {
+  switch (action.type) {
     case "main": return {
       ...state,
       allProducts: [...state.allProducts, action.payload.card],
@@ -25,8 +25,13 @@ function reducer(state, action){
     }
     case "bun": return {
       ...state,
+      allProducts: [...state.allProducts, action.payload.card],
       bun: action.payload.card,
-      fullPrice: state.fullPrice += action.payload.card.price*2
+      fullPrice: state.fullPrice += action.payload.card.price * 2
+    }
+    case "orderNum": return {
+      ...state,
+      orderNumber: action.payload.order.number
     }
     default: console.log(`Ошибка типа данных ${action.payload}`)
   }
@@ -133,10 +138,10 @@ export default function BurgerIngredients(props) {
           />
         </>
       </div>
-      <OrderInfo onOpen={onOpen} />
+      <OrderInfo onOpen={onOpen} ingredientsId={info.allProducts.map(item => item._id)} price={info.fullPrice} dispatch={dispatch}/>
       {state &&
         <Modal onClose={onClose}>
-          <OrderDetails onClose={onClose} />
+          <OrderDetails onClose={onClose} orderNumber={info.orderNumber} />
         </Modal>}
     </article>
   )

@@ -4,9 +4,9 @@ import PropTypes from "prop-types";
 import orderDetailImg from '../../images/done.svg';
 import { useSelector } from 'react-redux';
 
-export default function OrderDetails({onClose}) {
+export default function OrderDetails({onClose, orderNumber}) {
 
-    const orderNumber = useSelector(state => state.order.orderNumber)
+    // const orderNumber = useSelector(state => state.order.orderNumber)
 
     return (
         <div className={style.popup}  onClick={e => e.stopPropagation()}>
@@ -23,5 +23,6 @@ export default function OrderDetails({onClose}) {
 }
 
 OrderDetails.propTypes = {
-    onClose: PropTypes.func.isRequired
+    onClose: PropTypes.func.isRequired,
+    orderNum: PropTypes.any
   };

@@ -5,9 +5,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getOrderInfo } from '../services/burger-ingredients';
 import React, { useContext } from 'react';
 import { ConstructorInfo } from '../../context/context';
+import { getOrder } from '../../../utils/getAPI';
 
 
-export default function OrderInfo({ onOpen }) {
+export default function OrderInfo({ onOpen, ingredientsId, price, dispatch }) {
 
     // const dispatch = useDispatch();
 
@@ -21,16 +22,22 @@ export default function OrderInfo({ onOpen }) {
     //     onOpen()
     // }
 
-    const price = useContext(ConstructorInfo);
+    const makeOrder = async () => {
+        await getOrder(ingredientsId)
+        .then(res => dispatch({
+            type: "orderNum",
+            payload: res
+        }))
+        onOpen()
+    }
 
     return (
         <div className={`${style.orderInfo} mt-10 mr-4`}>
             <div className={`${style.paragraph} mr-10`}>
-                <p className="text text_type_digits-medium">{price.fullPrice}</p>
+                <p className="text text_type_digits-medium">{price}</p>
                 <CurrencyIcon type="primary" />
             </div>
-            {/* <Button htmlType="button" type="primary" size="large" onClick={getOrder}> */}
-            <Button htmlType="button" type="primary" size="large">
+            <Button htmlType="button" type="primary" size="large" onClick={makeOrder}>
                 Оформить заказ
             </Button>
         </div>
@@ -38,5 +45,8 @@ export default function OrderInfo({ onOpen }) {
 }
 
 OrderInfo.propTypes = {
-    onOpen: PropTypes.func.isRequired
+    onOpen: PropTypes.func.isRequired,
+    ingredientsId: PropTypes.array,
+    price: PropTypes.number,
+    dispatch: PropTypes.func.isRequired
 };
