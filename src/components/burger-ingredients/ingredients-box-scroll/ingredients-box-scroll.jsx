@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import style from './ingredients-box-scroll.module.css';
 import Ingredient from '../ingredient/ingredient';
 import PropTypes from "prop-types";
@@ -6,16 +6,12 @@ import Modal from '../../modal/modal';
 import IngredientDetails from '../../ingredient-details/ingredient-details';
 import { ingredientsTypes } from './../../../utils/constants';
 import { useSelector } from 'react-redux';
-import { IngredientsInfo } from '../../context/context';
 
 export default function IngredientsBoxScroll(props) {
-
-    const data = useContext(IngredientsInfo);
-
-    // const { data, load } = useSelector(state => ({
-    //     data: state.ingredients.ingredients,
-    //     load: state.ingredients.load
-    // }))
+    const { data, load } = useSelector(state => ({
+        data: state.ingredients.ingredients,
+        load: state.ingredients.load
+    }))
 
     /*Реализация работы модальных окон */
     const [ingredientPopupInfo, setIngredientPopupInfo] = React.useState(null);
@@ -29,9 +25,19 @@ export default function IngredientsBoxScroll(props) {
     }
 
     // Реализация скролла в меню ингредиентов
+    const menuScroll = React.useRef();
     const bunScroll = React.useRef();
     const mainScroll = React.useRef();
     const sauceCroll = React.useRef();
+    const observer = new IntersectionObserver((entries) => {
+        console.log(entries)
+    }, {
+        threshold: 0.8
+    })
+    const getMenuScroll = (item) => {
+        item.querySelectorAll(".scrollSection").forEach(e => observer.observe(e)); 
+    }
+    
 
     React.useEffect(() => {
         const settingsScroll = (item = bunScroll.current) => {
@@ -72,16 +78,16 @@ export default function IngredientsBoxScroll(props) {
 
     return (
         <>
-            {data && (<div className={style.scrollBox}>
-                <p ref={bunScroll} className="text text_type_main-default pt-10 mb-6">Булки</p>
+            {!load && (<div className={style.scrollBox} ref={menuScroll}>
+                <p ref={bunScroll} className="text text_type_main-default pt-10 mb-6 scrollSection">Булки</p>
                 <ul className={`${style.cards}`}>
                     {getCard(bun)}
                 </ul>
-                <p ref={sauceCroll} className="text text_type_main-default pt-10 mb-6">Соусы</p>
+                <p ref={sauceCroll} className="text text_type_main-default pt-10 mb-6 scrollSection">Соусы</p>
                 <ul className={`${style.cards}`}>
                     {getCard(sauce)}
                 </ul>
-                <p ref={mainScroll} className="text text_type_main-default pt-10 mb-6">Начинки</p>
+                <p ref={mainScroll} className="text text_type_main-default pt-10 mb-6 scrollSection">Начинки</p>
                 <ul className={`${style.cards}`}>
                     {getCard(main)}
                 </ul>

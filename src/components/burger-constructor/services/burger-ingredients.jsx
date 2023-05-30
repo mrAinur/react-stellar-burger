@@ -20,14 +20,18 @@ const ingredientsOrder = createSlice({
   initialState,
   reducers: {
     addBun: (state, action) => {
-      state.bun = action.payload
+      state.bun = [action.payload]
       state.allProducts.unshift(state.bun)
-      state.fullPrice = state.allProducts.reduce((total, product) => total += product.price * 2, 0)
+      state.fullPrice = state.bun.reduce((total, product) => {
+        if (state.bun.length) { return total += product.price * 2 } else return total
+      }, 0) + state.main.reduce((total, product) => total += product.price, 0)
     },
     addMain: (state, action) => {
       state.main.unshift(action.payload)
       state.allProducts.unshift(action.payload)
-      state.fullPrice = state.allProducts.reduce((total, product) => total += product.price, 0)
+      state.fullPrice = state.bun.reduce((total, product) => {
+        if (state.bun.length) { return total += product.price * 2 } else return total
+      }, 0) + state.main.reduce((total, product) => total += product.price, 0)
     },
     deleteIngredient: (state, action) => {
       state.main = state.main.filter(item => item.id !== action.payload.id)

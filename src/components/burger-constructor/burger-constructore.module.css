@@ -29,3 +29,9 @@
 ::-webkit-scrollbar-thumb {
     background-color: #8585AD;
 }
+
+.getIngredient{
+    margin: 0;
+    padding: 0;
+    display: flex;
+}

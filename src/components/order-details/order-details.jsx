@@ -4,14 +4,14 @@ import PropTypes from "prop-types";
 import orderDetailImg from '../../images/done.svg';
 import { useSelector } from 'react-redux';
 
-export default function OrderDetails({onClose, orderNumber}) {
+export default function OrderDetails({ onClose }) {
 
-    // const orderNumber = useSelector(state => state.order.orderNumber)
+    const orderNumber = useSelector(state => state.order.orderNumber)
 
     return (
-        <div className={style.popup}  onClick={e => e.stopPropagation()}>
+        <div className={style.popup} onClick={e => e.stopPropagation()}>
             <div className={style.close}>
-                <CloseIcon type="primary" onClick={() => onClose()}/>
+                <CloseIcon type="primary" onClick={() => onClose()} />
             </div>
             <p className={`${style.orderNum} text text_type_digits-large mt-30`}>{orderNumber}</p>
             <p className='text text_type_main-small mt-8'>Идентификатор заказа</p>
@@ -25,4 +25,4 @@ export default function OrderDetails({onClose, orderNumber}) {
 OrderDetails.propTypes = {
     onClose: PropTypes.func.isRequired,
     orderNum: PropTypes.any
-  };
+};

@@ -9,11 +9,9 @@ import { useDispatch } from 'react-redux';
 
 
 export default function BurgerConstructor(props) {
+  const dispatch = useDispatch();
 
-
-  // const dispatch = useDispatch();
-
-  // useEffect(() => { dispatch(getIngredientsInfo()) }, [])
+  useEffect(() => { dispatch(getIngredientsInfo()) }, [])
 
   const [scroll, setScroll] = React.useState(ingredientsTypes.bun);
 

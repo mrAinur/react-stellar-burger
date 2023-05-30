@@ -3,19 +3,35 @@ import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-c
 import PropTypes from "prop-types";
 import { ingredientPropType } from '../../../utils/prop-types';
 import { useDrag } from "react-dnd";
+import { useSelector } from 'react-redux';
 
 export default function Ingredient(props) {
 
     const { onOpen, card } = props;
+    const numBun = useSelector(state => state.order.bun).reduce((total, item) => {
+        if (item._id === card._id) {
+            total = 2
+        }
+        return total
+    }, 0);
+    const numMain = useSelector(state => state.order.main).reduce((total, item) => {
+        if (item._id === card._id) {
+            total++
+        }
+        return total
+    }, 0);
 
-    const [, cardRef] = useDrag({
+
+    const [{ didDrop }, cardRef] = useDrag({
         type: "ingredient",
-        item: {card}
+        item: { card }
     });
 
     return (
         <li className={style.card} onClick={() => onOpen(card)} ref={cardRef}>
-            <Counter count={0} size="default" extraClass="m-1" />
+            {card.type === "bun" ? <Counter count={numBun} size="default" extraClass="m-1" />
+                : <Counter count={numMain} size="default" extraClass="m-1" />
+            }
             <img src={card.image} alt="Изображение ингредиента" className={style.img} />
             <div className={`${style.cost} mt-1`}>
                 <p className="text text_type_main-default mr-2">{card.price}</p>

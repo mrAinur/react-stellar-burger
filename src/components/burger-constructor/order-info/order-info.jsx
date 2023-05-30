@@ -3,31 +3,19 @@ import { CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-co
 import PropTypes from "prop-types";
 import { useDispatch, useSelector } from 'react-redux';
 import { getOrderInfo } from '../services/burger-ingredients';
-import React, { useContext } from 'react';
-import { ConstructorInfo } from '../../context/context';
-import { getOrder } from '../../../utils/getAPI';
 
 
-export default function OrderInfo({ onOpen, ingredientsId, price, dispatch }) {
+export default function OrderInfo({ onOpen }) {
 
-    // const dispatch = useDispatch();
+    const dispatch = useDispatch();
 
-    // const { price, ingredientsId } = useSelector(state => ({ 
-    //     price: state.order.fullPrice,
-    //     ingredientsId: state.order.allProducts.map(item => item._id)
-    // }));
+    const { price, ingredientsId } = useSelector(state => ({
+        price: state.order.fullPrice,
+        ingredientsId: state.order.allProducts.map(item => item._id)
+    }));
 
-    // const getOrder = () => {
-    //     dispatch(getOrderInfo(ingredientsId))
-    //     onOpen()
-    // }
-
-    const makeOrder = async () => {
-        await getOrder(ingredientsId)
-        .then(res => dispatch({
-            type: "orderNum",
-            payload: res
-        }))
+    const getOrder = () => {
+        dispatch(getOrderInfo(ingredientsId))
         onOpen()
     }
 
@@ -37,7 +25,7 @@ export default function OrderInfo({ onOpen, ingredientsId, price, dispatch }) {
                 <p className="text text_type_digits-medium">{price}</p>
                 <CurrencyIcon type="primary" />
             </div>
-            <Button htmlType="button" type="primary" size="large" onClick={makeOrder}>
+            <Button htmlType="button" type="primary" size="large" onClick={getOrder}>
                 Оформить заказ
             </Button>
         </div>
@@ -45,8 +33,5 @@ export default function OrderInfo({ onOpen, ingredientsId, price, dispatch }) {
 }
 
 OrderInfo.propTypes = {
-    onOpen: PropTypes.func.isRequired,
-    ingredientsId: PropTypes.array,
-    price: PropTypes.number,
-    dispatch: PropTypes.func.isRequired
+    onOpen: PropTypes.func.isRequired
 };

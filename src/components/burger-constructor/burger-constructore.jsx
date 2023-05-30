@@ -1,81 +1,29 @@
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import style from './burger-constructore.module.css';
 import OrderInfo from './order-info/order-info';
-import React, { useContext } from 'react';
+import React from 'react';
 import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
 import { useDispatch, useSelector } from 'react-redux';
 import { useDrop } from "react-dnd";
 import { addBun, addMain, deleteIngredient } from "./services/burger-ingredients";
-import { ConstructorInfo } from '../context/context';
-
-function reducer(state, action) {
-  switch (action.type) {
-    case "main": return {
-      ...state,
-      allProducts: [...state.allProducts, action.payload.card],
-      main: [...state.main, action.payload.card],
-      fullPrice: state.fullPrice += action.payload.card.price
-    }
-    case "sauce": return {
-      ...state,
-      allProducts: [...state.allProducts, action.payload.card],
-      main: [...state.main, action.payload.card],
-      fullPrice: state.fullPrice += action.payload.card.price
-    }
-    case "bun": return {
-      ...state,
-      allProducts: [...state.allProducts, action.payload.card],
-      bun: action.payload.card,
-      fullPrice: state.fullPrice += action.payload.card.price * 2
-    }
-    case "orderNum": return {
-      ...state,
-      orderNumber: action.payload.order.number
-    }
-    default: console.log(`Ошибка типа данных ${action.payload}`)
-  }
-}
 
 export default function BurgerIngredients(props) {
+  const { bun, main } = useSelector(state => ({
+    bun: state.order.bun,
+    main: state.order.main,
+  }))
 
-  const initialState = useContext(ConstructorInfo);
-
-  const [info, dispatch] = React.useReducer(reducer, initialState);
-
-  // const { bun, main } = useSelector(state => ({
-  //   bun: state.order.bun,
-  //   main: state.order.main,
-  // }))
-
-  // const dispatch = useDispatch()
+  const dispatch = useDispatch()
 
   const onDropHandler = (item) => {
-    // switch (item.card.type) {
-    //   case "main":
-    //     return dispatch(addMain(item.card));
-    //   case "sauce":
-    //     return dispatch(addMain(item.card));
-    //   case "bun":
-    //     return dispatch(addBun(item.card));
-    //   default: console.log(`Ошибка данных ${item}`)
-    // }
     switch (item.card.type) {
       case "main":
-        return dispatch({
-          type: "main",
-          payload: item
-        });
+        return dispatch(addMain(item.card));
       case "sauce":
-        return dispatch({
-          type: "main",
-          payload: item
-        });
+        return dispatch(addMain(item.card));
       case "bun":
-        return dispatch({
-          type: "bun",
-          payload: item
-        });
+        return dispatch(addBun(item.card));
       default: console.log(`Ошибка данных ${item}`)
     }
   }
@@ -97,6 +45,19 @@ export default function BurgerIngredients(props) {
     setState(true)
   }
 
+  const upBun = (items) => {
+    return items.map(item => {
+      return (
+        <ConstructorElement
+          type="top"
+          isLocked={true}
+          text={`${item.name} (верх)`}
+          price={item.price}
+          thumbnail={item.image} />
+      )
+    })
+  }
+
   const mainIngredients = (items) => {
     return items.map((item, itemIndex) => {
       return (
@@ -113,36 +74,39 @@ export default function BurgerIngredients(props) {
     })
   }
 
+  const downBun = (items) => {
+    return items.map(item => {
+      return (
+        <ConstructorElement
+        type="bottom"
+        isLocked={true}
+        text={`${item.name} (низ)`}
+        price={item.price}
+        thumbnail={item.image} />
+      )
+    })
+  }
+
   return (
-    <article className={` ${style.ingredientsInfo} mt-25 ml-5`}>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', alignItems: 'center' }} ref={dropTarget}>
-        <>
-          <ConstructorElement
-            type="top"
-            isLocked={true}
-            text={`${info.bun.name} (верх)`}
-            price={info.bun.price}
-            thumbnail={info.bun.image}
-          />
-          <div className={style.scrollBox}>
-            {
-              mainIngredients(info.main)
-            }
-          </div>
-          <ConstructorElement
-            type="bottom"
-            isLocked={true}
-            text={`${info.bun.name} (низ)`}
-            price={info.bun.price}
-            thumbnail={info.bun.image}
-          />
-        </>
-      </div>
-      <OrderInfo onOpen={onOpen} ingredientsId={info.allProducts.map(item => item._id)} price={info.fullPrice} dispatch={dispatch}/>
-      {state &&
-        <Modal onClose={onClose}>
-          <OrderDetails onClose={onClose} orderNumber={info.orderNumber} />
-        </Modal>}
-    </article>
+    <>
+      <article className={` ${style.ingredientsInfo} mt-25 ml-5`}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', alignItems: 'center' }} ref={dropTarget}>
+          {!bun.length && <h2 className='text text_type_main-default pt-10 mb-6'>Перенесите сюда желаемую булочку</h2>}
+          {bun.length !== 0 && upBun(bun)}
+          {!main.length && <h2 className='text text_type_main-default pt-10 mb-6'>Перенесите сюда желаемый ингредиент</h2>}
+          {main &&
+            <div className={style.scrollBox}>
+              {mainIngredients(main)}
+            </div>}
+          {!bun.length && <h2 className='text text_type_main-default pt-10 mb-6'>Перенесите сюда желаемую булочку</h2>}
+          {bun.length !== 0 && downBun(bun)}
+        </div>
+        <OrderInfo onOpen={onOpen} />
+        {state &&
+          <Modal onClose={onClose}>
+            <OrderDetails onClose={onClose} />
+          </Modal>}
+      </article>
+    </>
   )
 }
