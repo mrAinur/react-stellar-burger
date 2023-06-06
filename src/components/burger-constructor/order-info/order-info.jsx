@@ -9,11 +9,12 @@ export default function OrderInfo({ onOpen }) {
 
     const dispatch = useDispatch();
 
-    const { price, ingredientsId } = useSelector(state => ({
+    const { price, bun, main} = useSelector(state => ({
         price: state.order.fullPrice,
-        ingredientsId: state.order.allProducts.map(item => item._id)
+        bun: state.order.bun,
+        main: state.order.main
     }));
-
+    const ingredientsId = main.concat(bun).map(item => item._id)
     const getOrder = () => {
         dispatch(getOrderInfo(ingredientsId))
         onOpen()

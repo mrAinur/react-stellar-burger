@@ -1,12 +1,14 @@
-import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 import style from './burger-constructore.module.css';
 import OrderInfo from './order-info/order-info';
-import React from 'react';
+import React, { useCallback } from 'react';
 import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
 import { useDispatch, useSelector } from 'react-redux';
 import { useDrop } from "react-dnd";
-import { addBun, addMain, deleteIngredient } from "./services/burger-ingredients";
+import { addBun, addMain, replaceIngredient } from "./services/burger-ingredients";
+import { v4 as uuidv4 } from 'uuid';
+import MainIngredient from './main-ingredient/main-ingredient';
 
 export default function BurgerIngredients(props) {
   const { bun, main } = useSelector(state => ({
@@ -19,9 +21,15 @@ export default function BurgerIngredients(props) {
   const onDropHandler = (item) => {
     switch (item.card.type) {
       case "main":
-        return dispatch(addMain(item.card));
+        return dispatch(addMain({
+          ingredient: item.card,
+          id: uuidv4()
+        }));
       case "sauce":
-        return dispatch(addMain(item.card));
+        return dispatch(addMain({
+          ingredient: item.card,
+          id: uuidv4()
+        }));
       case "bun":
         return dispatch(addBun(item.card));
       default: console.log(`Ошибка данных ${item}`)
@@ -58,18 +66,17 @@ export default function BurgerIngredients(props) {
     })
   }
 
+  const moveListItem = useCallback(
+    (dragIndex, hoverIndex) => {
+      dispatch(replaceIngredient({dragIndex: dragIndex, hoverIndex: hoverIndex}))
+    },
+    [dispatch],
+  )
+
   const mainIngredients = (items) => {
-    return items.map((item, itemIndex) => {
+    return items.map((item, index) => {
       return (
-        <>
-          <DragIcon type="primary" key={itemIndex} />
-          <ConstructorElement
-            text={item.name}
-            price={item.price}
-            thumbnail={item.image}
-            key={itemIndex}
-          />
-        </>
+        <MainIngredient item={item} index={index} moveListItem={moveListItem} />
       )
     })
   }
@@ -78,11 +85,11 @@ export default function BurgerIngredients(props) {
     return items.map(item => {
       return (
         <ConstructorElement
-        type="bottom"
-        isLocked={true}
-        text={`${item.name} (низ)`}
-        price={item.price}
-        thumbnail={item.image} />
+          type="bottom"
+          isLocked={true}
+          text={`${item.name} (низ)`}
+          price={item.price}
+          thumbnail={item.image} />
       )
     })
   }
@@ -95,9 +102,9 @@ export default function BurgerIngredients(props) {
           {bun.length !== 0 && upBun(bun)}
           {!main.length && <h2 className='text text_type_main-default pt-10 mb-6'>Перенесите сюда желаемый ингредиент</h2>}
           {main &&
-            <div className={style.scrollBox}>
+            <ul className={style.scrollBox}>
               {mainIngredients(main)}
-            </div>}
+            </ul>}
           {!bun.length && <h2 className='text text_type_main-default pt-10 mb-6'>Перенесите сюда желаемую булочку</h2>}
           {bun.length !== 0 && downBun(bun)}
         </div>

@@ -4,7 +4,8 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 const initialState = {
   load: true,
   loadError: false,
-  ingredients: []
+  ingredients: [],
+  activeTab: "bun"
 }
 
 export const getIngredientsInfo = createAsyncThunk("info/getInfo", async () => {
@@ -15,7 +16,11 @@ export const getIngredientsInfo = createAsyncThunk("info/getInfo", async () => {
 const getIngredients = createSlice({
   name: 'getIngredients',
   initialState,
-  reducers: {},
+  reducers: {
+    activeNuv: (state, action) => {
+      state.activeTab = action.payload
+    }
+  },
   extraReducers: (builder) => {
     builder.addCase(getIngredientsInfo.fulfilled, (state, action) => {
       state.ingredients = action.payload
@@ -25,5 +30,5 @@ const getIngredients = createSlice({
 })
 
 export const getIngredientsData = getIngredients.reducer;
-export const { ingredientsLoad, ingredientsSuccess, ingredientsLoadError } = getIngredients.actions;
+export const { activeNuv } = getIngredients.actions;
 
