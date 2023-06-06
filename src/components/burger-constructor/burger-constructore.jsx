@@ -10,7 +10,8 @@ import { addBun, addMain, replaceIngredient } from "./services/burger-ingredient
 import { v4 as uuidv4 } from 'uuid';
 import MainIngredient from './main-ingredient/main-ingredient';
 
-export default function BurgerIngredients(props) {
+export default function BurgerIngredients() {
+  
   const { bun, main } = useSelector(state => ({
     bun: state.order.bun,
     main: state.order.main,
