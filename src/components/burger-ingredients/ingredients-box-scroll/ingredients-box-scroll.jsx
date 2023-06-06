@@ -29,15 +29,14 @@ export default function IngredientsBoxScroll(props) {
 
     // Реализация скролла в меню ингредиентов
     const menuScroll = React.useRef();
-    const [sectionBunRef, setSectionBunInView] = useInView({ threshold: 0.8, root: document.querySelector("#viewport")});
-    const [sectionSauceRef, setSectionSauceInView] = useInView({ threshold: 0.8, root: document.querySelector("#viewport")});
-    const [sectionMainRef, setSectionMainInView] = useInView({ threshold: 0.45, root: document.querySelector("#viewport")});
+    const [sectionBunRef, setSectionBunInView] = useInView({ threshold: 0.8, root: document.querySelector("#viewport") });
+    const [sectionSauceRef, setSectionSauceInView] = useInView({ threshold: 0.8, root: document.querySelector("#viewport") });
+    const [sectionMainRef, setSectionMainInView] = useInView({ threshold: 0.45, root: document.querySelector("#viewport") });
 
     React.useEffect(() => {
         setSectionBunInView ? dispatch(activeNuv("bun")) :
         setSectionSauceInView ? dispatch(activeNuv("sauce")) :
-        setSectionMainInView ? dispatch(activeNuv("main")) :
-        console.log(`Ошибка данных в useInView`)
+        dispatch(activeNuv("main"))
     }, [setSectionBunInView, setSectionSauceInView, setSectionMainInView])
 
     const bunScroll = React.useRef();
