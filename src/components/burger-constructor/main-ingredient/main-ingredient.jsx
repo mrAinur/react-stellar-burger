@@ -7,15 +7,12 @@ import { deleteIngredient } from '../services/burger-ingredients.jsx';
 
 
 export default function MainIngredient({ item, index, moveListItem }) {
-    const dispatch = useDispatch
+    const dispatch = useDispatch()
 
     // useDrag - the list item is draggable
     const [{ isDragging }, dragRef] = useDrag({
         type: 'item',
-        item: { index },
-        collect: (monitor) => ({
-            isDragging: monitor.isDragging(),
-        }),
+        item: { index }
     })
 
 
