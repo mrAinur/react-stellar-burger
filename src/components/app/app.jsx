@@ -8,7 +8,6 @@ function App() {
       <main>
         <GetBurger />
       </main>
-      <footer className="mt-10"></footer>
     </>
   );
 }

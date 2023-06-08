@@ -9,9 +9,10 @@ import { useDrop } from "react-dnd";
 import { addBun, addMain, replaceIngredient } from "./services/burger-ingredients";
 import { v4 as uuidv4 } from 'uuid';
 import MainIngredient from './main-ingredient/main-ingredient';
+import { useModal } from '../hooks/useModal';
 
 export default function BurgerIngredients() {
-  
+
   const { bun, main } = useSelector(state => ({
     bun: state.order.bun,
     main: state.order.main,
@@ -32,7 +33,10 @@ export default function BurgerIngredients() {
           id: uuidv4()
         }));
       case "bun":
-        return dispatch(addBun(item.card));
+        return dispatch(addBun({
+          bun: item.card,
+          id: uuidv4()
+        }));
       default: console.log(`Ошибка данных ${item}`)
     }
   }
@@ -44,15 +48,7 @@ export default function BurgerIngredients() {
     },
   });
 
-  const [state, setState] = React.useState();
-
-  const onClose = () => {
-    setState(false)
-  }
-
-  const onOpen = (item) => {
-    setState(true)
-  }
+  const { isModalOpen, openModal, closeModal } = useModal();
 
   const upBun = (items) => {
     return items.map(item => {
@@ -62,14 +58,15 @@ export default function BurgerIngredients() {
           isLocked={true}
           text={`${item.name} (верх)`}
           price={item.price}
-          thumbnail={item.image} />
+          thumbnail={item.image}
+          key={item.id} />
       )
     })
   }
 
   const moveListItem = useCallback(
     (dragIndex, hoverIndex) => {
-      dispatch(replaceIngredient({dragIndex: dragIndex, hoverIndex: hoverIndex}))
+      dispatch(replaceIngredient({ dragIndex: dragIndex, hoverIndex: hoverIndex }))
     },
     [dispatch],
   )
@@ -90,7 +87,8 @@ export default function BurgerIngredients() {
           isLocked={true}
           text={`${item.name} (низ)`}
           price={item.price}
-          thumbnail={item.image} />
+          thumbnail={item.image}
+          key={item.id} />
       )
     })
   }
@@ -98,7 +96,7 @@ export default function BurgerIngredients() {
   return (
     <>
       <article className={` ${style.ingredientsInfo} mt-25 ml-5`}>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', alignItems: 'center' }} ref={dropTarget}>
+        <div className={style.mainBox} ref={dropTarget}>
           {!bun.length && <h2 className='text text_type_main-default pt-10 mb-6'>Перенесите сюда желаемую булочку</h2>}
           {bun.length !== 0 && upBun(bun)}
           {!main.length && <h2 className='text text_type_main-default pt-10 mb-6'>Перенесите сюда желаемый ингредиент</h2>}
@@ -109,10 +107,10 @@ export default function BurgerIngredients() {
           {!bun.length && <h2 className='text text_type_main-default pt-10 mb-6'>Перенесите сюда желаемую булочку</h2>}
           {bun.length !== 0 && downBun(bun)}
         </div>
-        <OrderInfo onOpen={onOpen} />
-        {state &&
-          <Modal onClose={onClose}>
-            <OrderDetails onClose={onClose} />
+        <OrderInfo openModal={openModal} />
+        {isModalOpen &&
+          <Modal closeModal={closeModal}>
+            <OrderDetails closeModal={closeModal} />
           </Modal>}
       </article>
     </>

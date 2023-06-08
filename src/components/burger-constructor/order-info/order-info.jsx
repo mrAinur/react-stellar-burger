@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getOrderInfo } from '../services/burger-ingredients';
 
 
-export default function OrderInfo({ onOpen }) {
+export default function OrderInfo({ openModal }) {
 
     const dispatch = useDispatch();
 
@@ -17,7 +17,7 @@ export default function OrderInfo({ onOpen }) {
     const ingredientsId = main.concat(bun).map(item => item._id)
     const getOrder = () => {
         dispatch(getOrderInfo(ingredientsId))
-        onOpen()
+        openModal()
     }
 
     return (
@@ -34,5 +34,5 @@ export default function OrderInfo({ onOpen }) {
 }
 
 OrderInfo.propTypes = {
-    onOpen: PropTypes.func.isRequired
+    openModal: PropTypes.func.isRequired
 };

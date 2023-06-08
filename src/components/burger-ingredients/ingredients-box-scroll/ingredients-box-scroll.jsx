@@ -97,7 +97,7 @@ export default function IngredientsBoxScroll(props) {
                 </ul>
             </div>
             {ingredientPopupInfo &&
-                (<Modal onClose={onClose}>
+                (<Modal closeModal={onClose}>
                     <IngredientDetails info={ingredientPopupInfo} onClose={onClose} />
                 </Modal>)
             }

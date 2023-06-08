@@ -2,6 +2,7 @@ import React from 'react';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { activeNuv } from '../services/burger-ingredients';
+import style from './nav-buttons.module.css'
 
 export default function NavButtons(props) {
     const dispatch = useDispatch()
@@ -19,7 +20,7 @@ export default function NavButtons(props) {
     }, [active])
 
     return (
-        <div style={{ display: 'flex' }}>
+        <div className={style.mainBox}>
             <Tab value="bun" active={current === 'bun'} onClick={setCurrent}>
                 Булки
             </Tab>

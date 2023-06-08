@@ -5,6 +5,13 @@
     align-items: flex-end;
 }
 
+.mainBox {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center
+}
+
 .scrollBox {
     margin: 8px 0 8px -20px;
     padding: 0 8px 0 0;
@@ -26,7 +33,7 @@
     background-color: #8585AD;
 }
 
-.getIngredient{
+.getIngredient {
     margin: 0;
     padding: 0;
     display: flex;

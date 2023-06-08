@@ -32,7 +32,7 @@ export default function Ingredient(props) {
             {card.type === "bun" ? <Counter count={numBun} size="default" extraClass="m-1" />
                 : <Counter count={numMain} size="default" extraClass="m-1" />
             }
-            <img src={card.image} alt="Изображение ингредиента" className={style.img} />
+            <img src={card.image} alt={card.name} className={style.img} />
             <div className={`${style.cost} mt-1`}>
                 <p className="text text_type_main-default mr-2">{card.price}</p>
                 <CurrencyIcon type="primary" />
