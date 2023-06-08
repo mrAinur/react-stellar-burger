@@ -9,12 +9,13 @@ export default function OrderInfo({ openModal }) {
 
     const dispatch = useDispatch();
 
-    const { price, bun, main} = useSelector(state => ({
+    const { price, bun, main } = useSelector(state => ({
         price: state.order.fullPrice,
         bun: state.order.bun,
         main: state.order.main
     }));
     const ingredientsId = main.concat(bun).map(item => item._id)
+    
     const getOrder = () => {
         dispatch(getOrderInfo(ingredientsId))
         openModal()
@@ -26,9 +27,12 @@ export default function OrderInfo({ openModal }) {
                 <p className="text text_type_digits-medium">{price}</p>
                 <CurrencyIcon type="primary" />
             </div>
-            <Button htmlType="button" type="primary" size="large" onClick={getOrder}>
+            {!bun.length && <Button htmlType="button" type="primary" size="large" onClick={getOrder}  disabled>
                 Оформить заказ
-            </Button>
+            </Button>}
+            {bun.length !== 0 && <Button htmlType="button" type="primary" size="large" onClick={getOrder} >
+                Оформить заказ
+            </Button>}
         </div>
     )
 }
