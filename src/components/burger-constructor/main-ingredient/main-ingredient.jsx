@@ -41,7 +41,7 @@ export default function MainIngredient({ item, index, moveListItem }) {
     const dragDropRef = dragRef(dropRef(ref))
 
     return (
-        <li ref={dragDropRef} className={style.ingredient} key={item.id}>
+        <li ref={dragDropRef} className={style.ingredient}>
             <DragIcon type="primary" />
             <ConstructorElement
                 text={item.name}

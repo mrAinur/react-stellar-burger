@@ -9,7 +9,7 @@ import { useDrop } from "react-dnd";
 import { addBun, addMain, replaceIngredient } from "./services/burger-ingredients";
 import { v4 as uuidv4 } from 'uuid';
 import MainIngredient from './main-ingredient/main-ingredient';
-import { useModal } from '../hooks/useModal';
+import { useModal } from '../../hooks/useModal';
 
 export default function BurgerIngredients() {
 
@@ -35,7 +35,7 @@ export default function BurgerIngredients() {
       case "bun":
         return dispatch(addBun({
           bun: item.card,
-          id: uuidv4()
+          id: uuidv4(),
         }));
       default: console.log(`Ошибка данных ${item}`)
     }
@@ -74,7 +74,7 @@ export default function BurgerIngredients() {
   const mainIngredients = (items) => {
     return items.map((item, index) => {
       return (
-        <MainIngredient item={item} index={index} moveListItem={moveListItem} />
+        <MainIngredient item={item} index={index} moveListItem={moveListItem} key={item.id}/>
       )
     })
   }

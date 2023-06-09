@@ -22,17 +22,14 @@ export default function Modal({ children, closeModal }) {
     }, [])
 
     return ReactDOM.createPortal(
-        (
-            <div className={style.popupOpen} onClick={() => closeModal()}>
-                <div className={style.popup} onClick={e => e.stopPropagation()}>
-                    <div className={style.close}>
-                        <CloseIcon type="primary" onClick={() => closeModal()} />
-                    </div>
-                    {children}
+        <ModalOverlay closeModal={closeModal}>
+            <div className={style.popup} onClick={e => e.stopPropagation()}>
+                <div className={style.close}>
+                    <CloseIcon type="primary" onClick={() => closeModal()} />
                 </div>
-                <ModalOverlay />
+                {children}
             </div>
-        ),
+        </ModalOverlay>,
         modalRoot
     );
 }

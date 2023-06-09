@@ -49,6 +49,7 @@ const ingredientsOrder = createSlice({
       state.orderNumber = action.payload
       state.bun = []
       state.main = []
+      state.fullPrice = 0
     })
   }
 })
