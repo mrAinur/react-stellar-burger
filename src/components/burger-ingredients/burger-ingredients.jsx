@@ -1,105 +1,24 @@
-import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { useEffect } from 'react';
+import NavButtons from './nav-buttons/nav-buttons';
 import style from './burger-ingredients.module.css';
-import OrderInfo from './order-info/order-info';
-import PropTypes from "prop-types";
-import { ingredientPropType } from '../../utils/prop-types';
-import React from 'react';
-import Modal from '../modal/modal';
-import OrderDetails from '../order-details/order-details';
+import IngredientsBoxScroll from './ingredients-box-scroll/ingredients-box-scroll';
+import { getIngredientsInfo } from './services/burger-ingredients';
+import { useDispatch } from 'react-redux';
 
-export default function BurgerIngredients(props) {
 
-  const [state, setState] = React.useState();
 
-  const [orderInfo, setOrderInfo] = React.useState(null);
+export default function BurgerConstructor(props) {
+  const dispatch = useDispatch();
 
-  const onClose = () => {
-    setState(false)
-    setOrderInfo(null)
-  }
-
-  const onOpen = (item) => {
-    setState(true)
-    setOrderInfo(item)
-  }
+  useEffect(() => { dispatch(getIngredientsInfo()) }, [])
 
   return (
-    <article className={` ${style.ingredientsInfo} mt-25 ml-5`}>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', alignItems: 'center' }}>
-        <ConstructorElement
-          type="top"
-          isLocked={true}
-          text={`${props.data[0].name} (верх)`}
-          price={props.data[0].price}
-          thumbnail={props.data[0].image}
-        />
-        <div className={style.scrollBox}>
-          <DragIcon type="primary" />
-          <ConstructorElement
-            text={props.data[1].name}
-            price={props.data[1].price}
-            thumbnail={props.data[1].image}
-          />
-          <DragIcon type="primary" />
-          <ConstructorElement
-            text={props.data[1].name}
-            price={props.data[1].price}
-            thumbnail={props.data[1].image}
-          />
-          <DragIcon type="primary" />
-          <ConstructorElement
-            text={props.data[1].name}
-            price={props.data[1].price}
-            thumbnail={props.data[1].image}
-          />
-          <DragIcon type="primary" />
-          <ConstructorElement
-            text={props.data[1].name}
-            price={props.data[1].price}
-            thumbnail={props.data[1].image}
-          />
-          <DragIcon type="primary" />
-          <ConstructorElement
-            text={props.data[1].name}
-            price={props.data[1].price}
-            thumbnail={props.data[1].image}
-          />
-          <DragIcon type="primary" />
-          <ConstructorElement
-            text={props.data[1].name}
-            price={props.data[1].price}
-            thumbnail={props.data[1].image}
-          />
-          <DragIcon type="primary" />
-          <ConstructorElement
-            text={props.data[1].name}
-            price={props.data[1].price}
-            thumbnail={props.data[1].image}
-          />
-          <DragIcon type="primary" />
-          <ConstructorElement
-            text={props.data[1].name}
-            price={props.data[1].price}
-            thumbnail={props.data[1].image}
-          />
-        </div>
-        <ConstructorElement
-          type="bottom"
-          isLocked={true}
-          text={`${props.data[0].name} (низ)`}
-          price={props.data[0].price}
-          thumbnail={props.data[0].image}
-        />
-      </div>
-      <OrderInfo onOpen={onOpen} />
-      {state &&
-        <Modal onClose={onClose}>
-          <OrderDetails onClose={onClose} orderInfo={orderInfo} />
-        </Modal>}
+    <article className={style.main}>
+      <h2 className="text text_type_main-large mt-10 ml-3">Соберите бургер</h2>
+      <nav className="mt-5">
+        <NavButtons />
+      </nav>
+      <IngredientsBoxScroll />
     </article>
   )
 }
-
-BurgerIngredients.propTypes = {
-  data: PropTypes.arrayOf(ingredientPropType.isRequired).isRequired
-};

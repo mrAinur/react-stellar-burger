@@ -25,3 +25,8 @@
 ::-webkit-scrollbar-thumb {
     background-color: #8585AD;
 }
+
+.scrollSection{
+    margin: 0;
+    padding: 0;
+}

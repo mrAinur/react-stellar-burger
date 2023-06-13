@@ -1,18 +1,26 @@
 import React from 'react';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
-import PropTypes from "prop-types";
+import { useDispatch, useSelector } from 'react-redux';
+import { activeNuv } from '../services/burger-ingredients';
+import style from './nav-buttons.module.css'
 
 export default function NavButtons(props) {
+    const dispatch = useDispatch()
 
     const [current, setCurrent] = React.useState('bun')
 
+    const active = useSelector(state => state.ingredients.activeTab)
+
     React.useEffect(() => {
-        props.scrollPosition(current)
+        dispatch(activeNuv(current))
     }, [current])
-    
+
+    React.useEffect(() => {
+        setCurrent(active)
+    }, [active])
 
     return (
-        <div style={{ display: 'flex' }}>
+        <div className={style.mainBox}>
             <Tab value="bun" active={current === 'bun'} onClick={setCurrent}>
                 Булки
             </Tab>
@@ -26,7 +34,3 @@ export default function NavButtons(props) {
 
     )
 }
-
-NavButtons.propTypes = {
-    scrollPosition: PropTypes.func.isRequired
-};
