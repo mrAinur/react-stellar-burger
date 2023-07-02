@@ -4,5 +4,4 @@
 
 .paragraph{
     composes: paragraph from "../burger-constructor/burger-constructor.module.css";
-    color: #8585AD;
 }
