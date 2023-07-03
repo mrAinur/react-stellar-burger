@@ -1,4 +1,4 @@
-import { accessToken } from "./constants";
+import { accessToken, refreshToken } from "./constants";
 
 const baseURL = "https://norma.nomoreparties.space/api/"
 
@@ -10,11 +10,7 @@ const baseURL = "https://norma.nomoreparties.space/api/"
 //   }
 
 function checkResponse(res) {
-    if (res.ok) {
-        return res = res.json()
-    } else {
-        return Promise.reject(`Ошибка ${res.status}`);
-    }
+    return res.ok ? res.json() : res.json().then(err => Promise.reject(err))
 }
 
 export function getInfo() {
@@ -52,7 +48,7 @@ export function getNewUser(email, password, name) {
             "Content-Type": "application/json"
         }
     })
-    .then(res => checkResponse(res))
+        .then(res => checkResponse(res))
 }
 
 export function getLoginUser(email, password) {
@@ -66,7 +62,7 @@ export function getLoginUser(email, password) {
             "Content-Type": "application/json"
         }
     })
-    .then(res => checkResponse(res))
+        .then(res => checkResponse(res))
 }
 
 export function getLogoutUser() {
@@ -79,7 +75,7 @@ export function getLogoutUser() {
             "Content-Type": "application/json"
         }
     })
-    .then(res => checkResponse(res))
+        .then(res => checkResponse(res))
 }
 
 export function forgotPassword(email) {
@@ -92,7 +88,7 @@ export function forgotPassword(email) {
             "Content-Type": "application/json"
         }
     })
-    .then(res => checkResponse(res))
+        .then(res => checkResponse(res))
 }
 
 export function resetPassword(password, token) {
@@ -106,16 +102,67 @@ export function resetPassword(password, token) {
             "Content-Type": "application/json"
         }
     })
-    .then(res => checkResponse(res))
+        .then(res => checkResponse(res))
 }
 
 export function getUserInfoApi() {
-    return fetch(`${baseURL}auth/user`, {
+    return fetchWithRefresh(`${baseURL}auth/user`, {
         method: "GET",
         headers: {
-            authorization: localStorage.getItem(accessToken),
-            "Content-Type": "application/json"            
+            authorization: `Bearer ${localStorage.getItem(accessToken)}`,
+            "Content-Type": "application/json"
         }
     })
-    .then(res => checkResponse(res))
+        .then(res => checkResponse(res))
+}
+
+export function editUserInfoApi(name, email, password) {
+    return fetchWithRefresh(`${baseURL}auth/user`, {
+        method: "PATCH",
+        headers: {
+            authorization: `Bearer ${localStorage.getItem(accessToken)}`,
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            name, email, password
+        })
+    })
+        .then(res => checkResponse(res))
+}
+
+export function refreshUserInfoApi() {
+    return fetch(`${baseURL}auth/user`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            token: localStorage.getItem(refreshToken)
+        })
+    })
+        .then(res => checkResponse(res))
+}
+
+export async function fetchWithRefresh(url, options) {
+    try {
+        const res = await fetch(url, options);
+        return res
+    }
+    catch (err) {
+        if (err.message === "jwt expired") {
+            console.log("123")
+            const refreshData = await refreshUserInfoApi();
+            console.log("456")
+            if (!refreshData.success) {
+                return Promise.reject(refreshData)
+            }
+            localStorage.setItem(accessToken, refreshData.accessToken)
+            localStorage.setItem(refreshToken, refreshData.refreshToken)
+            options.headers.authorization = refreshData.accessToken;
+            const res = await fetch(url, options);
+            return await checkResponse(res)
+        } else {
+            return Promise.reject(err)
+        }
+    }
 }

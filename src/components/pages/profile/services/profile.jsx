@@ -18,8 +18,10 @@ const userData = createSlice({
   initialState,
   reducers: {
     getUserInfo: (state, action) => {
-      state.user = action.payload
-      state.setUserData = action.payload
+      state.user.email = action.payload.email
+      state.user.name = action.payload.name
+      state.setUserData.email = action.payload.email
+      state.setUserData.name = action.payload.name
       state.getUser = true
     },
     setUserInfo: (state, action) => {

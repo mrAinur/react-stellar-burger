@@ -8,21 +8,17 @@ import { configureStore } from '@reduxjs/toolkit';
 import { getOrderData } from "./components/pages/constructore/burger-constructor/services/burger-ingredients";
 import { getIngredientsData } from "./components/pages/constructore/burger-ingredients/services/burger-ingredients";
 import { loginUser } from "./components/pages/login/services/login";
-import { getButton } from "./components/app-header/service/app-header";
 import { registrationUser } from "./components/pages/registration/services/registration";
 import { user } from "./components/pages/profile/services/profile";
-import { resetEmailUserForPassword } from "./components/pages/forgot-password/services/forgot-password";
 import { resetPasswordWithToken } from "./components/pages/reset-password/services/reset-password";
 
 const store = configureStore({
   reducer: {
-    activeButton: getButton,
     ingredients: getIngredientsData,
     order: getOrderData,
     login: loginUser,
     registration: registrationUser,
     user,
-    resetEmail: resetEmailUserForPassword,
     resetPassword: resetPasswordWithToken
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware(),

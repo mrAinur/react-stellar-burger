@@ -8,6 +8,7 @@ import Profile from "../pages/profile/profile";
 import Feed from "../pages/feeds/feed";
 import ForgotPassword from "../pages/forgot-password/forgot-password";
 import ResetPassword from "../pages/reset-password/reset-password";
+import Orders from "../pages/orders/orders";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { checkUserAuth } from "../../utils/workWithApi";
@@ -34,7 +35,7 @@ function App() {
             <Route path="/forgot-password" element={<OnlyUnAuth component={<ForgotPassword />} />} />
             <Route path="/reset-password" element={<OnlyUnAuth component={<ResetPassword />} />} />
             <Route path="/profile" element={<OnlyAuth component={<Profile />} />} >
-              <Route path="orders" element={<OnlyAuth component={<Profile />} />} />
+              <Route path="orders" element={<OnlyAuth component={<Orders />} />} />
               <Route path="exit" element={<OnlyAuth component={<Profile />} />} />
             </Route>
           </Routes>

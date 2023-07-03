@@ -1,6 +1,6 @@
 import { clearRegistration } from "../components/pages/registration/services/registration";
 import { getUserInfo, reset } from "../components/pages/profile/services/profile";
-import { getNewUser, getLoginUser, getLogoutUser, forgotPassword, resetPassword, getUserInfoApi } from "./getAPI";
+import { getNewUser, getLoginUser, getLogoutUser, forgotPassword, resetPassword, getUserInfoApi, editUserInfoApi } from "./getAPI";
 import { clearLoginInfo } from "../components/pages/login/services/login";
 import { clearPasswordWithEmail } from "../components/pages/reset-password/services/reset-password";
 import { checkedUser } from "../components/pages/login/services/login";
@@ -37,8 +37,8 @@ export const loginUser = (email, password) => {
 export const logoutUser = () => {
     return (dispatch) => {
         return getLogoutUser().then(res => {
-            localStorage.removeItemItem(accessToken)
-            localStorage.removeItemItem(refreshToken)
+            localStorage.removeItem(accessToken)
+            localStorage.removeItem(refreshToken)
             dispatch(reset())
         })
             .catch("Ошибка выхода пользователя")
@@ -68,6 +68,16 @@ export const getUser = () => {
             dispatch(getUserInfo(res.user))
             dispatch(clearLoginInfo())
         });
+    };
+};
+
+export const editUser = (name, email, password) => {
+    return (dispatch) => {
+        return editUserInfoApi(name, email, password).then(res => {
+            dispatch(getUserInfo(res.user))
+            dispatch(clearLoginInfo())
+        })
+            .catch("Ошибка изменения данных пользователя")
     };
 };
 

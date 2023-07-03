@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import style from './forgot-password.module.css';
 import { EmailInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, useNavigate } from 'react-router-dom';
-import { setEmail } from './services/forgot-password';
+import { setEmail } from '../reset-password/services/reset-password';
 import { getResetEmail } from '../../../utils/workWithApi';
 
 export default function ForgotPassword() {
@@ -11,7 +11,7 @@ export default function ForgotPassword() {
 
     const navigate = useNavigate()
 
-    const email = useSelector(state => state.resetEmail.email);
+    const email = useSelector(state => state.resetPassword.email);
 
     const onClick = async () => {
         await getResetEmail(email)
