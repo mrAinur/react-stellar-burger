@@ -11,6 +11,7 @@ import { loginUser } from "./components/pages/login/services/login";
 import { registrationUser } from "./components/pages/registration/services/registration";
 import { user } from "./components/pages/profile/services/profile";
 import { resetPasswordWithToken } from "./components/pages/reset-password/services/reset-password";
+import { BrowserRouter as Router } from "react-router-dom";
 
 const store = configureStore({
   reducer: {
@@ -23,12 +24,15 @@ const store = configureStore({
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
   devTools: process.env.NODE_ENV !== 'production',
-  enhancers: [],});
+  enhancers: [],
+});
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-    <App />
+      <Router>
+        <App />
+      </Router>
     </Provider>
   </React.StrictMode>,
   document.getElementById("root")

@@ -132,8 +132,7 @@ export function refreshUserInfoApi() {
     return fetch(`${baseURL}auth/user`, {
         method: "POST",
         headers: {
-            "Content-Type": "application/json",
-            authorization: localStorage.getItem(refreshToken)
+            "Content-Type": "application/json;charset=utf-8"
         },
         body: JSON.stringify({
             token: localStorage.getItem(refreshToken)

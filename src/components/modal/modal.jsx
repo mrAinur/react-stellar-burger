@@ -7,12 +7,12 @@ import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
 const modalRoot = document.getElementById("react-modals");
 
-export default function Modal({ children, closeModal }) {
+export default function Modal({ children, onClose }) {
 
     React.useEffect(() => {
         function closePopup(e) {
             if (e.key === "Escape") {
-                closeModal()
+                onClose()
             }
         }
         document.addEventListener("keydown", closePopup);
@@ -22,10 +22,10 @@ export default function Modal({ children, closeModal }) {
     }, [])
 
     return ReactDOM.createPortal(
-        <ModalOverlay closeModal={closeModal}>
+        <ModalOverlay onClose={onClose}>
             <div className={style.popup} onClick={e => e.stopPropagation()}>
                 <div className={style.close}>
-                    <CloseIcon type="primary" onClick={() => closeModal()} />
+                    <CloseIcon type="primary" onClick={() => onClose()} />
                 </div>
                 {children}
             </div>

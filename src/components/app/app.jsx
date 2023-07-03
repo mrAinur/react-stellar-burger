@@ -1,6 +1,6 @@
 import Header from "../app-header/header";
 import GetBurger from "../pages/constructore/get-burger/get-burger";
-import { BrowserRouter as Router, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
+import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { OnlyAuth, OnlyUnAuth } from "../protected-route-element/protected-route-element";
 import Login from "../pages/login/login";
 import Registration from "../pages/registration/registration";
@@ -15,6 +15,7 @@ import { checkUserAuth } from "../../utils/workWithApi";
 import { accessToken } from "../../utils/constants";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import Modal from "../modal/modal";
+import { getIngredientsInfo } from "../burger-ingredients/services/burger-ingredients";
 
 function App() {
 
@@ -26,6 +27,7 @@ function App() {
 
   useEffect(() => {
     dispatch(checkUserAuth(localStorage.getItem(accessToken)))
+    dispatch(getIngredientsInfo())
   }, [])
 
   const background = location.state && location.state.background;
@@ -34,7 +36,6 @@ function App() {
 
   return (
     <>
-      <Router>
         <Header />
         <main>
           <Routes location={background || location}>
@@ -51,6 +52,7 @@ function App() {
             </Route>
           </Routes>
         </main>
+
         {background && <Routes>
           <Route path="/ingredients/:ingredientId" element={
             <Modal onClose={handleModalClose}>
@@ -58,7 +60,7 @@ function App() {
             </Modal>}>
           </Route>
         </Routes>}
-      </Router>
+
     </>
   );
 }

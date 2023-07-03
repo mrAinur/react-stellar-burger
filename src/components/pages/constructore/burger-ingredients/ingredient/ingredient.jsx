@@ -33,7 +33,7 @@ export default function Ingredient({card}) {
             }
             <img src={card.image} alt={card.name} className={style.img} />
             <div className={`${style.cost} mt-1`}>
-                <p className="text text_type_main-default mr-2">{card.price}</p>
+                <p className={`${style.price} text text_type_main-default mr-2`}>{card.price}</p>
                 <CurrencyIcon type="primary" />
             </div>
             <p className={`${style.name}text text_type_main-default mt-1`}>{card.name}</p>

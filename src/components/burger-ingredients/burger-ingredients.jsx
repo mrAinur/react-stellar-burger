@@ -8,9 +8,6 @@ import { useDispatch } from 'react-redux';
 
 
 export default function BurgerConstructor(props) {
-  const dispatch = useDispatch();
-
-  useEffect(() => { dispatch(getIngredientsInfo()) }, [])
 
   return (
     <article className={style.main}>

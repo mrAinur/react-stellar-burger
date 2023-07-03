@@ -68,7 +68,7 @@ export default function IngredientsBoxScroll(props) {
     // Отрисовываем каждый ингредиент
     const getCard = (items) => {
         return items.map(item => {
-            return <Link to={`/ingredients/${item._id}`} state={{ background: location }} ><Ingredient card={item} /></Link>
+            return <Link to={`/ingredients/${item._id}`} state={{ background: location }} className={style.link} key={item._id}><Ingredient card={item} /></Link>
         })
     };
 

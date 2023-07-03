@@ -109,8 +109,8 @@ export default function BurgerIngredients() {
         </div>
         <OrderInfo openModal={openModal} />
         {isModalOpen &&
-          <Modal closeModal={closeModal}>
-            <OrderDetails closeModal={closeModal} />
+          <Modal onClose={closeModal}>
+            <OrderDetails onClose={closeModal} />
           </Modal>}
       </article>
     </>
