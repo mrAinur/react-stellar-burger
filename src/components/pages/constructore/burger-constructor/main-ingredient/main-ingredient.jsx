@@ -10,7 +10,7 @@ export default function MainIngredient({ item, index, moveListItem }) {
     const dispatch = useDispatch()
 
     // useDrag - the list item is draggable
-    const [dragRef] = useDrag({
+    const [, dragRef] = useDrag({
         type: 'item',
         item: { index }
     })

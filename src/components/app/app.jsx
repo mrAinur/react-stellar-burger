@@ -1,6 +1,6 @@
 import Header from "../app-header/header";
 import GetBurger from "../pages/constructore/get-burger/get-burger";
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { OnlyAuth, OnlyUnAuth } from "../protected-route-element/protected-route-element";
 import Login from "../pages/login/login";
 import Registration from "../pages/registration/registration";
@@ -13,8 +13,14 @@ import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { checkUserAuth } from "../../utils/workWithApi";
 import { accessToken } from "../../utils/constants";
+import IngredientDetails from "../ingredient-details/ingredient-details";
+import Modal from "../modal/modal";
 
 function App() {
+
+  const navigate = useNavigate()
+
+  const location = useLocation()
 
   const dispatch = useDispatch();
 
@@ -22,13 +28,18 @@ function App() {
     dispatch(checkUserAuth(localStorage.getItem(accessToken)))
   }, [])
 
+  const background = location.state && location.state.background;
+
+  const handleModalClose = () => navigate(-1);
+
   return (
     <>
       <Router>
         <Header />
         <main>
-          <Routes>
+          <Routes location={background || location}>
             <Route path="/" element={<GetBurger />} />
+            <Route path="/ingredients/:ingredientId" element={<IngredientDetails />} />
             <Route path="/feed" element={<Feed />} />
             <Route path="/login" element={<OnlyUnAuth component={<Login />} />} />
             <Route path="/registration" element={<OnlyUnAuth component={<Registration />} />} />
@@ -40,6 +51,13 @@ function App() {
             </Route>
           </Routes>
         </main>
+        {background && <Routes>
+          <Route path="/ingredients/:ingredientId" element={
+            <Modal onClose={handleModalClose}>
+              <IngredientDetails />
+            </Modal>}>
+          </Route>
+        </Routes>}
       </Router>
     </>
   );

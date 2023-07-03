@@ -2,8 +2,14 @@ import style from './ingredient-details.module.css';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from "prop-types";
 import { ingredientPropType } from '../../utils/prop-types';
+import { useLocation } from 'react-router-dom';
+import { useState } from 'react';
 
-export default function IngredientDetails({ info }) {
+export default function IngredientDetails() {
+
+    const location = useLocation();
+
+    const info = useState(state => state.ingredients.ingredients).filter(item => item._id === location.pathname.replace("/ingredients/", ""))
 
     return (
         <>

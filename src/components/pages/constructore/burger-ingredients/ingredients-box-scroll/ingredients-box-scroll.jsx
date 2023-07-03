@@ -7,6 +7,7 @@ import { ingredientsTypes } from '../../../../../utils/constants';
 import { useDispatch, useSelector } from 'react-redux';
 import { useInView } from "react-intersection-observer";
 import { activeNuv } from '../services/burger-ingredients';
+import { Link, useLocation } from 'react-router-dom';
 
 export default function IngredientsBoxScroll(props) {
     const dispatch = useDispatch()
@@ -16,16 +17,7 @@ export default function IngredientsBoxScroll(props) {
         scrollPosition: state.ingredients.activeTab
     }))
 
-    /*Реализация работы модальных окон */
-    const [ingredientPopupInfo, setIngredientPopupInfo] = React.useState(null);
-
-    const onClose = () => {
-        setIngredientPopupInfo(null)
-    }
-
-    const onOpen = (item) => {
-        setIngredientPopupInfo(item)
-    }
+    const location = useLocation()
 
     // Реализация скролла в меню ингредиентов
     const menuScroll = React.useRef();
@@ -76,7 +68,7 @@ export default function IngredientsBoxScroll(props) {
     // Отрисовываем каждый ингредиент
     const getCard = (items) => {
         return items.map(item => {
-            return <Ingredient card={item} key={item._id} onClose={onClose} onOpen={onOpen} />
+            return <Link to={`/ingredients/${item._id}`} state={{ background: location }} ><Ingredient card={item} /></Link>
         })
     };
 
@@ -96,11 +88,11 @@ export default function IngredientsBoxScroll(props) {
                     {!load && getCard(main)}
                 </ul>
             </div>
-            {ingredientPopupInfo &&
+            {/* {ingredientPopupInfo &&
                 (<Modal closeModal={onClose}>
                     <IngredientDetails info={ingredientPopupInfo} onClose={onClose} />
                 </Modal>)
-            }
+            } */}
         </>
     )
 }
