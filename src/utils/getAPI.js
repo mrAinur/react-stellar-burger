@@ -129,7 +129,7 @@ export function editUserInfoApi(name, email, password) {
 }
 
 export function refreshUserInfoApi() {
-    return fetch(`${baseURL}auth/user`, {
+    return fetch(`${baseURL}auth/token`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json;charset=utf-8"
@@ -138,7 +138,6 @@ export function refreshUserInfoApi() {
             token: localStorage.getItem(refreshToken)
         })
     })
-        .then(res => checkResponse(res))
 }
 
 export async function fetchWithRefresh(url, options) {
@@ -148,9 +147,7 @@ export async function fetchWithRefresh(url, options) {
     }
     catch (err) {
         if (err.message === "jwt expired") {
-            console.log("123")
             const refreshData = await refreshUserInfoApi();
-            console.log("456")
             if (!refreshData.success) {
                 return Promise.reject(refreshData)
             }

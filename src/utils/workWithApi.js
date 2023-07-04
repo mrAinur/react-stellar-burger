@@ -14,7 +14,7 @@ export const registrationUser = (email, password, name) => {
                 const token = res.accessToken.replace("Bearer ", "")
                 localStorage.setItem(accessToken, token)
                 localStorage.setItem(refreshToken, res.refreshToken)
-                dispatch(getUserInfo(res))
+                dispatch(getUserInfo(res.user))
                 dispatch(clearRegistration())
             })
             .catch("Ошибка регистрации пользователя")
@@ -84,7 +84,6 @@ export const editUser = (name, email, password) => {
 export const checkUserAuth = () => {
     return (dispatch) => {
         if (localStorage.getItem(accessToken)) {
-            console.log()
             dispatch(getUser())
                 .catch(() => {
                     localStorage.removeItem(accessToken);
