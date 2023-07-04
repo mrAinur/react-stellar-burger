@@ -11,8 +11,7 @@ export const registrationUser = (email, password, name) => {
     return (dispatch) => {
         return getNewUser(email, password, name)
             .then(res => {
-                const token = res.accessToken.replace("Bearer ", "")
-                localStorage.setItem(accessToken, token)
+                localStorage.setItem(accessToken, res.accessToken)
                 localStorage.setItem(refreshToken, res.refreshToken)
                 dispatch(getUserInfo(res.user))
                 dispatch(clearRegistration())
@@ -24,8 +23,7 @@ export const registrationUser = (email, password, name) => {
 export const loginUser = (email, password) => {
     return (dispatch) => {
         return getLoginUser(email, password).then(res => {
-            const token = res.accessToken.replace("Bearer ", "")
-            localStorage.setItem(accessToken, token)
+            localStorage.setItem(accessToken, res.accessToken)
             localStorage.setItem(refreshToken, res.refreshToken)
             dispatch(getUserInfo(res.user))
             dispatch(clearLoginInfo())

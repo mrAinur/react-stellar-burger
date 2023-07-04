@@ -109,7 +109,7 @@ export function getUserInfoApi() {
     return fetchWithRefresh(`${baseURL}auth/user`, {
         method: "GET",
         headers: {
-            authorization: `Bearer ${localStorage.getItem(accessToken)}`,
+            authorization: localStorage.getItem(accessToken),
             "Content-Type": "application/json"
         }
     })
@@ -119,7 +119,7 @@ export function editUserInfoApi(name, email, password) {
     return fetchWithRefresh(`${baseURL}auth/user`, {
         method: "PATCH",
         headers: {
-            authorization: `Bearer ${localStorage.getItem(accessToken)}`,
+            authorization: localStorage.getItem(accessToken),
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
@@ -138,6 +138,7 @@ export function refreshUserInfoApi() {
             token: localStorage.getItem(refreshToken)
         })
     })
+        .then(res => checkResponse(res))
 }
 
 export async function fetchWithRefresh(url, options) {
