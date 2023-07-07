@@ -1,9 +1,7 @@
 import React from 'react';
 import style from './ingredients-box-scroll.module.css';
 import Ingredient from '../ingredient/ingredient';
-import Modal from '../../../../modal/modal';
-import IngredientDetails from '../../../../ingredient-details/ingredient-details';
-import { ingredientsTypes } from '../../../../../utils/constants';
+import { ingredientsTypes } from '../../../../utils/constants';
 import { useDispatch, useSelector } from 'react-redux';
 import { useInView } from "react-intersection-observer";
 import { activeNuv } from '../services/burger-ingredients';

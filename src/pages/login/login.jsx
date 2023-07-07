@@ -3,7 +3,7 @@ import style from './login.module.css';
 import { EmailInput, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link } from 'react-router-dom';
 import { changeLoginInfo } from './services/login';
-import { loginUser } from '../../../utils/workWithApi';
+import { loginUser } from '../../utils/workWithApi';
 
 export default function Login() {
     const dispatch = useDispatch();
@@ -14,9 +14,14 @@ export default function Login() {
         dispatch(changeLoginInfo({ name: e.target.name, value: e.target.value }));
     }
 
+    const handleSubmit = e => {
+        e.preventDefault();
+        dispatch(loginUser(email, password));
+    }
+
     return (
         <section className={style.main}>
-            <div className={style.loginForm}>
+            <form className={style.loginForm} onSubmit={handleSubmit}>
                 <h2 className="text text_type_main-medium">Вход</h2>
                 <EmailInput
                     onChange={onChange}
@@ -32,7 +37,7 @@ export default function Login() {
                     extraClass="mt-6"
                 />
                 <div className={`${style.button} mt-6`}>
-                    <Button htmlType="button" type="primary" size="medium" onClick={() => dispatch(loginUser(email, password))}>
+                    <Button htmlType="submit" type="primary" size="medium" onSubmit={handleSubmit}>
                         Войти
                     </Button>
                 </div>
@@ -42,7 +47,7 @@ export default function Login() {
                 <p className="text text_type_main-default text_color_inactive mt-4">Забыли пароль?
                     <Link to="/forgot-password" className={`${style.paragraphLink} text text_type_main-default`}>Восстановить пароль</Link>
                 </p>
-            </div>
+            </form>
         </section>
     )
 }

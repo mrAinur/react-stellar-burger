@@ -3,7 +3,7 @@ import style from './reset-password.module.css';
 import { PasswordInput, Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { resetPasswordWithEmail } from './services/reset-password';
-import { resetUserPassword } from '../../../utils/workWithApi';
+import { resetUserPassword } from '../../utils/workWithApi';
 
 export default function ResetPassword() {
 
@@ -15,7 +15,8 @@ export default function ResetPassword() {
 
     const onChange = e => dispatch(resetPasswordWithEmail({ name: e.target.name, value: e.target.value }))
 
-    const onClick = () => {
+    const handleSubmit = e => {
+        e.preventDefault()
         dispatch(resetUserPassword(password, token))
         navigate("/")
     }
@@ -23,7 +24,7 @@ export default function ResetPassword() {
     return (
         localStorage.getItem("emailSent") === "true" ?
         <section className={style.main}>
-            <div className={style.loginForm}>
+            <form className={style.loginForm} onSubmit={handleSubmit}>
                 <h2 className="text text_type_main-medium">Восстановление пароля</h2>
                 <PasswordInput
                     onChange={onChange}
@@ -43,14 +44,14 @@ export default function ResetPassword() {
                     extraClass="mt-6"
                 />
                 <div className={`${style.button} mt-6`}>
-                    <Button htmlType="button" type="primary" size="medium" onClick={onClick}>
+                    <Button htmlType="submit" type="primary" size="medium" onSubmit={handleSubmit}>
                         Сохранить
                     </Button>
                 </div>
                 <p className="text text_type_main-default text_color_inactive mt-20">Вспомнили пароль?
                     <Link to="/login" className={`${style.paragraphLink} text text_type_main-default`}>Войти</Link>
                 </p>
-            </div>
+            </form>
         </section> : <Navigate to="/"/>
     )
 }

@@ -58,3 +58,8 @@
     text-decoration: none;
     cursor: pointer;
 }
+
+.form{
+    margin: 0;
+    padding: 0;
+}

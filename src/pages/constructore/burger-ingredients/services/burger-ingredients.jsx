@@ -1,4 +1,4 @@
-import { getInfo } from '../../../../../utils/getAPI';
+import { getInfo } from '../../../../utils/getAPI';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 const initialState = {

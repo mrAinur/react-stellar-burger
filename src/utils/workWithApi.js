@@ -1,9 +1,9 @@
-import { clearRegistration } from "../components/pages/registration/services/registration";
-import { getUserInfo, reset } from "../components/pages/profile/services/profile";
+import { clearRegistration } from "../pages/registration/services/registration";
+import { getUserInfo, reset } from "../pages/profile/services/profile";
 import { getNewUser, getLoginUser, getLogoutUser, forgotPassword, resetPassword, getUserInfoApi, editUserInfoApi } from "./getAPI";
-import { clearLoginInfo } from "../components/pages/login/services/login";
-import { clearPasswordWithEmail } from "../components/pages/reset-password/services/reset-password";
-import { checkedUser } from "../components/pages/login/services/login";
+import { clearLoginInfo } from "../pages/login/services/login";
+import { clearPasswordWithEmail } from "../pages/reset-password/services/reset-password";
+import { checkedUser } from "../pages/login/services/login";
 import { accessToken, refreshToken } from "./constants";
 
 
@@ -16,7 +16,7 @@ export const registrationUser = (email, password, name) => {
                 dispatch(getUserInfo(res.user))
                 dispatch(clearRegistration())
             })
-            .catch("Ошибка регистрации пользователя")
+            .catch(rej => console.error(`Ошибка ${rej.status}`))
     }
 }
 
@@ -28,7 +28,7 @@ export const loginUser = (email, password) => {
             dispatch(getUserInfo(res.user))
             dispatch(clearLoginInfo())
         })
-            .catch("Ошибка авторизации пользователя")
+            .catch(rej => console.error(`Ошибка ${rej.status}`))
     };
 };
 
@@ -39,7 +39,7 @@ export const logoutUser = () => {
             localStorage.removeItem(refreshToken)
             dispatch(reset())
         })
-            .catch("Ошибка выхода пользователя")
+            .catch(rej => console.error(`Ошибка ${rej.status}`))
     };
 };
 
@@ -47,7 +47,7 @@ export const getResetEmail = (email) => {
     return forgotPassword(email).then(res => {
         localStorage.setItem("emailSent", "true")
     })
-        .catch("Ошибка отправки сообщения с кодом для восстановления пароля")
+        .catch(rej => console.error(`Ошибка ${rej.status}`))
 };
 
 export const resetUserPassword = (password, token) => {
@@ -56,7 +56,7 @@ export const resetUserPassword = (password, token) => {
             dispatch(clearPasswordWithEmail())
             localStorage.removeItem("emailSent")
         })
-            .catch("Ошибка изменения пароля")
+            .catch(rej => console.error(`Ошибка ${rej.status}`))
     };
 };
 
@@ -75,7 +75,7 @@ export const editUser = (name, email, password) => {
             dispatch(getUserInfo(res.user))
             dispatch(clearLoginInfo())
         })
-            .catch("Ошибка изменения данных пользователя")
+            .catch(rej => console.error(`Ошибка ${rej.status}`))
     };
 };
 

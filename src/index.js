@@ -5,12 +5,12 @@ import App from "./components/app/app";
 import reportWebVitals from "./reportWebVitals";
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
-import { getOrderData } from "./components/pages/constructore/burger-constructor/services/burger-ingredients";
-import { getIngredientsData } from "./components/pages/constructore/burger-ingredients/services/burger-ingredients";
-import { loginUser } from "./components/pages/login/services/login";
-import { registrationUser } from "./components/pages/registration/services/registration";
-import { user } from "./components/pages/profile/services/profile";
-import { resetPasswordWithToken } from "./components/pages/reset-password/services/reset-password";
+import { getOrderData } from "./components/burger-constructor/services/burger-ingredients"; 
+import { getIngredientsData } from "./components/burger-ingredients/services/burger-ingredients"; 
+import { loginUser } from "./pages/login/services/login"; 
+import { registrationUser } from "./pages/registration/services/registration"; 
+import { user } from "./pages/profile/services/profile"; 
+import { resetPasswordWithToken } from "./pages/reset-password/services/reset-password"; 
 import { BrowserRouter as Router } from "react-router-dom";
 
 const store = configureStore({

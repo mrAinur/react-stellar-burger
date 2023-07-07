@@ -1,9 +1,9 @@
 import { useDispatch, useSelector } from 'react-redux';
 import style from './profile.module.css';
-import { EmailInput, PasswordInput, Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
+import { EmailInput, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { setUserInfo, cancelSetUserInfo } from './services/profile';
 import { Link, useLocation } from 'react-router-dom';
-import { editUser, logoutUser } from '../../../utils/workWithApi';
+import { editUser, logoutUser } from '../../utils/workWithApi';
 import { Outlet } from 'react-router-dom';
 
 export default function Profile() {
@@ -15,6 +15,11 @@ export default function Profile() {
 
   const onChange = e => {
     dispatch(setUserInfo({ name: e.target.name, value: e.target.value }))
+  }
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    dispatch(editUser(name, email, password))
   }
 
   const cancel = () => dispatch(cancelSetUserInfo())
@@ -31,37 +36,39 @@ export default function Profile() {
         {location.pathname === "/profile/orders" && <p className={style.paragraph}>В этом разделе вы можете просмотреть свою историю заказов</p>}
       </article>
       {location.pathname === "/profile" && <article className={style.loginForm}>
-      <EmailInput
-          onChange={onChange}
-          value={name}
-          name={'name'}
-          placeholder="Имя"
-          isIcon={true}
-        />
-        <EmailInput
-          onChange={onChange}
-          value={email}
-          name={'email'}
-          placeholder="Логин"
-          isIcon={true}
-          extraClass="mt-6"
-        />
-        <PasswordInput
-          onChange={onChange}
-          value={password}
-          name={'password'}
-          extraClass="mt-6"
-        />
-        <div className={`${style.buttons} mt-6`}>
-          <p className={`${style.paragraphLink} text text_type_main-default`} onClick={cancel}>
-            Отмена
-          </p>
-          <div className={style.button}>
-            <Button htmlType="button" type="primary" size="medium" onClick={() => dispatch(editUser(name, email, password))}>
-              Сохранить
-            </Button>
+        <form className={style.form} onSubmit={handleSubmit}>
+          <EmailInput
+            onChange={onChange}
+            value={name}
+            name={'name'}
+            placeholder="Имя"
+            isIcon={true}
+          />
+          <EmailInput
+            onChange={onChange}
+            value={email}
+            name={'email'}
+            placeholder="Логин"
+            isIcon={true}
+            extraClass="mt-6"
+          />
+          <PasswordInput
+            onChange={onChange}
+            value={password}
+            name={'password'}
+            extraClass="mt-6"
+          />
+          <div className={`${style.buttons} mt-6`}>
+            <p className={`${style.paragraphLink} text text_type_main-default`} onClick={cancel}>
+              Отмена
+            </p>
+            <div className={style.button}>
+              <Button htmlType="submit" type="primary" size="medium" onSubmit={handleSubmit}>
+                Сохранить
+              </Button>
+            </div>
           </div>
-        </div>
+        </form>
       </article>}
       {location.pathname === "/profile/orders" && <Outlet />}
     </section>

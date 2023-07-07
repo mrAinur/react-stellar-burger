@@ -3,11 +3,13 @@ import { CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-co
 import PropTypes from "prop-types";
 import { useDispatch, useSelector } from 'react-redux';
 import { getOrderInfo } from '../services/burger-ingredients';
-
+import { useNavigate } from 'react-router-dom';
 
 export default function OrderInfo({ openModal }) {
 
     const dispatch = useDispatch();
+
+    const navigate = useNavigate()
 
     const { price, bun, main } = useSelector(state => ({
         price: state.order.fullPrice,
@@ -15,10 +17,16 @@ export default function OrderInfo({ openModal }) {
         main: state.order.main
     }));
     const ingredientsId = main.concat(bun).map(item => item._id)
-    
+
+    const user = useSelector(state => state.user.getUser)
+
     const getOrder = () => {
-        dispatch(getOrderInfo(ingredientsId))
-        openModal()
+        if (user) {
+            dispatch(getOrderInfo(ingredientsId))
+            openModal()
+        } else {
+            navigate("/login")
+        }
     }
 
     return (
@@ -27,7 +35,7 @@ export default function OrderInfo({ openModal }) {
                 <p className="text text_type_digits-medium">{price}</p>
                 <CurrencyIcon type="primary" />
             </div>
-            {!bun.length && <Button htmlType="button" type="primary" size="large" onClick={getOrder}  disabled>
+            {!bun.length && <Button htmlType="button" type="primary" size="large" onClick={getOrder} disabled>
                 Оформить заказ
             </Button>}
             {bun.length !== 0 && <Button htmlType="button" type="primary" size="large" onClick={getOrder} >

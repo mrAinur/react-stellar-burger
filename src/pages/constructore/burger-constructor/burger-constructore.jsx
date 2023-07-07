@@ -2,14 +2,14 @@ import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-comp
 import style from './burger-constructore.module.css';
 import OrderInfo from './order-info/order-info';
 import { useCallback } from 'react';
-import Modal from '../../../modal/modal';
-import OrderDetails from '../../../order-details/order-details';
+import Modal from '../../../components/modal/modal';
+import OrderDetails from '../../../components/order-details/order-details';
 import { useDispatch, useSelector } from 'react-redux';
 import { useDrop } from "react-dnd";
 import { addBun, addMain, replaceIngredient } from "./services/burger-ingredients";
 import { v4 as uuidv4 } from 'uuid';
 import MainIngredient from './main-ingredient/main-ingredient';
-import { useModal } from '../../../../hooks/useModal';
+import { useModal } from '../../../hooks/useModal';
 
 export default function BurgerIngredients() {
 

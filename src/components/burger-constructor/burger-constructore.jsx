@@ -1,7 +1,7 @@
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 import style from './burger-constructore.module.css';
 import OrderInfo from './order-info/order-info';
-import React, { useCallback } from 'react';
+import { useCallback } from 'react';
 import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
 import { useDispatch, useSelector } from 'react-redux';
