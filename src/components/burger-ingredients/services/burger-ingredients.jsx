@@ -10,7 +10,6 @@ const initialState = {
 
 export const getIngredientsInfo = createAsyncThunk("info/getInfo", async () => {
   const ingredients = await getInfo();
-  localStorage.setItem("ingredients", JSON.stringify(ingredients.data))
   return ingredients.data
 })
 

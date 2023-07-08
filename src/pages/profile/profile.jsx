@@ -63,7 +63,7 @@ export default function Profile() {
               Отмена
             </p>
             <div className={style.button}>
-              <Button htmlType="submit" type="primary" size="medium" onSubmit={handleSubmit}>
+              <Button htmlType="submit" type="primary" size="medium">
                 Сохранить
               </Button>
             </div>

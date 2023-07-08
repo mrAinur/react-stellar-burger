@@ -49,7 +49,7 @@ export default function Registration() {
                     extraClass="mt-6"
                 />
                 <div className={`${style.button} mt-6`}>
-                    <Button htmlType="submit" type="primary" size="medium" onSubmit={handleSubmit}>
+                    <Button htmlType="submit" type="primary" size="medium">
                         Зарегистрироваться
                     </Button>
                 </div>
