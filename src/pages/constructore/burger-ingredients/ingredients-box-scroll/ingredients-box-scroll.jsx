@@ -25,8 +25,8 @@ export default function IngredientsBoxScroll(props) {
 
     React.useEffect(() => {
         setSectionBunInView ? dispatch(activeNuv("bun")) :
-        setSectionSauceInView ? dispatch(activeNuv("sauce")) :
-        dispatch(activeNuv("main"))
+            setSectionSauceInView ? dispatch(activeNuv("sauce")) :
+                dispatch(activeNuv("main"))
     }, [setSectionBunInView, setSectionSauceInView, setSectionMainInView])
 
     const bunScroll = React.useRef();
@@ -71,26 +71,19 @@ export default function IngredientsBoxScroll(props) {
     };
 
     return (
-        <>
-            <div id="viewport" className={style.scrollBox} ref={menuScroll}>
-                <p ref={bunScroll} className="text text_type_main-default pt-10 mb-6 scrollSection">Булки</p>
-                <ul className={`${style.cards}`} ref={sectionBunRef}>
-                    {!load && getCard(bun)}
-                </ul>
-                <p ref={sauceCroll} className="text text_type_main-default pt-10 mb-6 scrollSection">Соусы</p>
-                <ul className={`${style.cards}`} ref={sectionSauceRef}>
-                    {!load && getCard(sauce)}
-                </ul>
-                <p ref={mainScroll} className="text text_type_main-default pt-10 mb-6 scrollSection">Начинки</p>
-                <ul className={`${style.cards}`} ref={sectionMainRef}>
-                    {!load && getCard(main)}
-                </ul>
-            </div>
-            {/* {ingredientPopupInfo &&
-                (<Modal closeModal={onClose}>
-                    <IngredientDetails info={ingredientPopupInfo} onClose={onClose} />
-                </Modal>)
-            } */}
-        </>
+        <div id="viewport" className={style.scrollBox} ref={menuScroll}>
+            <p ref={bunScroll} className="text text_type_main-default pt-10 mb-6 scrollSection">Булки</p>
+            <ul className={`${style.cards}`} ref={sectionBunRef}>
+                {!load && getCard(bun)}
+            </ul>
+            <p ref={sauceCroll} className="text text_type_main-default pt-10 mb-6 scrollSection">Соусы</p>
+            <ul className={`${style.cards}`} ref={sectionSauceRef}>
+                {!load && getCard(sauce)}
+            </ul>
+            <p ref={mainScroll} className="text text_type_main-default pt-10 mb-6 scrollSection">Начинки</p>
+            <ul className={`${style.cards}`} ref={sectionMainRef}>
+                {!load && getCard(main)}
+            </ul>
+        </div>
     )
 }

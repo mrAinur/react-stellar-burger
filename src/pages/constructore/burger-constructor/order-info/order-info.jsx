@@ -16,7 +16,7 @@ export default function OrderInfo({ openModal }) {
         bun: state.order.bun,
         main: state.order.main
     }));
-    const ingredientsId = main.concat(bun).map(item => item._id)
+    const ingredientsId = bun.concat(main).concat(bun).map(item => item._id)
 
     const user = useSelector(state => state.user.getUser)
 

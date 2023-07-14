@@ -30,7 +30,9 @@ export function getOrder(item) {
             "ingredients": item
         }),
         headers: {
+            authorization: localStorage.getItem(accessToken),
             "Content-Type": "application/json"
+
         }
     })
         .then(res => checkResponse(res))

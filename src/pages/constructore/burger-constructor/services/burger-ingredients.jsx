@@ -42,6 +42,9 @@ const ingredientsOrder = createSlice({
       updateArr[action.payload.dragIndex] = hoverItem
       updateArr[action.payload.hoverIndex] = dragItem
       state.main = updateArr
+    },
+    clearOrderNumber: (state) => {
+      state.orderNumber = null
     }
   },
   extraReducers: (builder) => {
@@ -55,4 +58,4 @@ const ingredientsOrder = createSlice({
 })
 
 export const getOrderData = ingredientsOrder.reducer;
-export const { addBun, addMain, deleteIngredient, replaceIngredient } = ingredientsOrder.actions;
+export const { addBun, addMain, deleteIngredient, replaceIngredient, clearOrderNumber } = ingredientsOrder.actions;

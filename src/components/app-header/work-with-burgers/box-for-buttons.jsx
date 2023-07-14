@@ -2,6 +2,7 @@ import BurgerConstructor from "./burger-constructor/burger-constructor";
 import OrderFeed from "./order-feed/order-feed";
 import { Logo } from '@ya.praktikum/react-developer-burger-ui-components';
 import style from './box-for-buttons.module.css'
+import { Link } from "react-router-dom";
 
 
 export default function BoxForButtons(props) {
@@ -11,7 +12,7 @@ export default function BoxForButtons(props) {
                 <BurgerConstructor />
                 <OrderFeed />
             </div>
-            <Logo />
+            <Link to="/"><Logo /></Link>
         </div>
     )
 }

@@ -5,13 +5,18 @@ import App from "./components/app/app";
 import reportWebVitals from "./reportWebVitals";
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
-import { getOrderData } from "./components/burger-constructor/services/burger-ingredients"; 
-import { getIngredientsData } from "./components/burger-ingredients/services/burger-ingredients"; 
-import { loginUser } from "./pages/login/services/login"; 
-import { registrationUser } from "./pages/registration/services/registration"; 
-import { user } from "./pages/profile/services/profile"; 
-import { resetPasswordWithToken } from "./pages/reset-password/services/reset-password"; 
+import { getOrderData } from "./pages/constructore/burger-constructor/services/burger-ingredients";
+import { getIngredientsData } from "./pages/constructore/burger-ingredients/services/burger-ingredients";
+import { loginUser } from "./pages/login/services/login";
+import { registrationUser } from "./pages/registration/services/registration";
+import { user } from "./pages/profile/services/profile";
+import { resetPasswordWithToken } from "./pages/reset-password/services/reset-password";
 import { BrowserRouter as Router } from "react-router-dom";
+import { wsFeedReducer } from "./pages/feeds/services/reducers/feedReducers";
+import { feedSocketMiddleware } from "./pages/feeds/services/middleware/feedMiddleware";
+import { wsFeedConnect, wsFeedDisconnect, wsFeedConnecting, wsFeedOpen, wsFeedClose, wsFeedMessage, wsFeedError } from "./pages/feeds/services/actions/feedActions"
+
+const feedMiddleware = feedSocketMiddleware({ wsFeedConnect, wsFeedDisconnect, wsFeedConnecting, wsFeedOpen, wsFeedClose, wsFeedMessage, wsFeedError })
 
 const store = configureStore({
   reducer: {
@@ -20,9 +25,10 @@ const store = configureStore({
     login: loginUser,
     registration: registrationUser,
     user,
-    resetPassword: resetPasswordWithToken
+    resetPassword: resetPasswordWithToken,
+    feed: wsFeedReducer
   },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(feedMiddleware),
   devTools: process.env.NODE_ENV !== 'production',
   enhancers: [],
 });

@@ -15,7 +15,7 @@ import { checkUserAuth } from "../../utils/workWithApi";
 import { accessToken } from "../../utils/constants";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import Modal from "../modal/modal";
-import { getIngredientsInfo } from "../burger-ingredients/services/burger-ingredients";
+import { getIngredientsInfo } from "../../pages/constructore/burger-ingredients/services/burger-ingredients";
 
 function App() {
 
