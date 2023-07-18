@@ -15,7 +15,7 @@ export default function IngredientDetails() {
     return (
         info ?
         (<div className={background !== null ? style.main : style.mainTop}>
-            <div className={`${style.head} mt-10`}>
+            <div className={`${background !== null ? style.head : style.headCenter} mt-10`}>
                 <p className={`${style.title} text text_type_main-large`}>Детали ингредиента</p>
             </div>
             <img className={style.img} src={info.image_large} alt='Картинка ингредиента бургера' />

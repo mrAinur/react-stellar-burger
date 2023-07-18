@@ -4,7 +4,7 @@ import { FormattedDate, CurrencyIcon } from '@ya.praktikum/react-developer-burge
 import { v4 as uuidv4 } from 'uuid';
 import PropTypes from "prop-types";
 
-export default function OrderInfoRectangle({ data }) {
+export default function OrderInfoRectangle({ data, element }) {
 
     const ingredients = useSelector(state => state.ingredients.ingredients)
 
@@ -29,23 +29,34 @@ export default function OrderInfoRectangle({ data }) {
         })
     };
 
+    const getStatus = () => {
+        switch (data.status) {
+            case "created":
+                return <p className={`${style.default} text text_type_main-default`}>Создан</p>;
+            case "pending":
+                return <p className={`${style.default} text text_type_main-default`}>Готовится</p>;
+            case "done":
+                return <p className={`${style.ready} text text_type_main-default`}>Выполнен</p>;
+            case "cancel":
+                return <p className={`${style.cancel} text text_type_main-default`}>Отменён</p>;
+            default: console.log(`Ошибка данных статуса заказа ${data.status}`)
+        }
+    }
+
     const getPrice = items => {
-        return items.reduce((total, item) => {
-            return ingredients.find(price => price._id === item).type === "bun" ?
-                total += (ingredients.find(price => price._id === item).price * 2) :
-                total += ingredients.find(price => price._id === item).price
-        }, 0)
+        return items.reduce((total, item) => total += ingredients.find(price => price._id === item).price, 0)
     }
 
     return (
         <li className={style.main} >
             <div className={style.date}>
                 <p className="text text_type_digits-default">#{data.number}</p>
-                <p className="text text_type_main-default text_color_inactive ">
+                <p className="text text_type_main-default text_color_inactive">
                     <FormattedDate date={new Date(data.updatedAt)} /> i-GMT+3
                 </p>
             </div>
             <h2 className={`text text_type_main-medium ${style.title}`}>{data.name}</h2>
+            {element === "private" ? getStatus() : null}
             <div className={style.ingredients}>
                 <ul className={style.list}>{getImg(data.ingredients)}</ul>
                 <div className={style.price}>
@@ -58,5 +69,6 @@ export default function OrderInfoRectangle({ data }) {
 }
 
 OrderInfoRectangle.propTypes = {
-    data: PropTypes.object.isRequired
+    data: PropTypes.object.isRequired,
+    element: PropTypes.string.isRequired
 };

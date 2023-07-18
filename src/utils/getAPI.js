@@ -1,6 +1,4 @@
-import { accessToken, refreshToken } from "./constants";
-
-const baseURL = "https://norma.nomoreparties.space/api/"
+import { accessToken, baseURL, refreshToken } from "./constants";
 
 /*Совет очень полезный, спасибо! У меня сейчас просто крайне мало времени, но я это сделаю в следующем месяце */
 
@@ -163,4 +161,14 @@ export async function fetchWithRefresh(url, options) {
             return Promise.reject(err)
         }
     }
+}
+
+export function getOldOrder(item) {
+    return fetch(`${baseURL}orders/${item}`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json;charset=utf-8"
+        }
+    })
+        .then(res => checkResponse(res))
 }

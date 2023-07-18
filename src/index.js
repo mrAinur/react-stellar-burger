@@ -14,9 +14,13 @@ import { resetPasswordWithToken } from "./pages/reset-password/services/reset-pa
 import { BrowserRouter as Router } from "react-router-dom";
 import { wsFeedReducer } from "./pages/feeds/services/reducers/feedReducers";
 import { feedSocketMiddleware } from "./pages/feeds/services/middleware/feedMiddleware";
-import { wsFeedConnect, wsFeedDisconnect, wsFeedConnecting, wsFeedOpen, wsFeedClose, wsFeedMessage, wsFeedError } from "./pages/feeds/services/actions/feedActions"
+import { wsFeedConnect, wsFeedDisconnect, wsFeedConnecting, wsFeedOpen, wsFeedClose, wsFeedMessage, wsFeedError } from "./pages/feeds/services/actions/feedActions";
+import { ordersSocketMiddleware } from "./pages/orders/services/middleware/ordersMiddleware";
+import { wsOrdersConnect, wsOrdersDisconnect, wsOrdersConnecting, wsOrdersOpen, wsOrdersClose, wsOrdersMessage, wsOrdersError } from "./pages/orders/services/actions/ordersActions";
+import { wsOrdersReducer } from "./pages/orders/services/reducers/ordersReducers";
 
-const feedMiddleware = feedSocketMiddleware({ wsFeedConnect, wsFeedDisconnect, wsFeedConnecting, wsFeedOpen, wsFeedClose, wsFeedMessage, wsFeedError })
+const feedMiddleware = feedSocketMiddleware({ wsFeedConnect, wsFeedDisconnect, wsFeedConnecting, wsFeedOpen, wsFeedClose, wsFeedMessage, wsFeedError });
+const orderMiddleware = ordersSocketMiddleware({ wsOrdersConnect, wsOrdersDisconnect, wsOrdersConnecting, wsOrdersOpen, wsOrdersClose, wsOrdersMessage, wsOrdersError })
 
 const store = configureStore({
   reducer: {
@@ -26,9 +30,10 @@ const store = configureStore({
     registration: registrationUser,
     user,
     resetPassword: resetPasswordWithToken,
-    feed: wsFeedReducer
+    feed: wsFeedReducer,
+    ordersHistory: wsOrdersReducer
   },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(feedMiddleware),
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(feedMiddleware, orderMiddleware),
   devTools: process.env.NODE_ENV !== 'production',
   enhancers: [],
 });

@@ -12,7 +12,6 @@ const modalRoot = document.getElementById("react-modals");
 export default function Modal({ children, onClose }) {
 
     const dispatch = useDispatch()
-    console.log(children.type.name)
 
     const clearOrderNum = () => {
         if (children.type.name === "OrderDetails") {

@@ -3,7 +3,7 @@ import { wsFeedConnecting, wsFeedOpen, wsFeedClose, wsFeedMessage, wsFeedError }
 
 const initialState = {
     status: "offline",
-    feeds: [],
+    feeds: {orders: []},
     connectionError: ""
 }
 
@@ -16,7 +16,7 @@ export const wsFeedReducer = createReducer(initialState, builder => {
         })
         .addCase(wsFeedClose, state => {state.status = "offline"})
         .addCase(wsFeedMessage, (state, action) => {
-            state.feeds = action.payload.orders
+            state.feeds = action.payload
         })
         .addCase(wsFeedError, (state, action) => {
             state.connectionError = action.payloud

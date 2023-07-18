@@ -1,11 +1,21 @@
 .main {
-    margin: 120px 0 0 340px;
+    margin: 44px 0 0 340px;
     padding: 0;
     max-width: 1240px;
     display: grid;
     grid-template-columns: repeat(2, fit-content(480px));
-    grid-template-rows: repeat(1, fit-content(320px));
+    grid-template-rows: repeat(1, fit-content(868px));
     gap: 40px;
+}
+
+.menu{
+    margin: 76px 0 0 0;
+    padding: 0;
+}
+
+.loginForm{
+    margin: 76px 0 0 0;
+    padding: 0;
 }
 
 .links {

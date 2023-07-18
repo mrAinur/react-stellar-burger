@@ -26,7 +26,7 @@ export default function Profile() {
 
   return (
     <section className={style.main}>
-      <article>
+      <article className={style.menu}>
         <div className={style.links}>
           <Link to={"/profile"} className={`${style.link} text text_type_main-medium text_color_inactive ${location.pathname === "/profile" ? style.linkActive : ""}`}>Профиль</Link>
           <Link to={"/profile/orders"} className={`${style.link} text text_type_main-medium text_color_inactive ${location.pathname === "/profile/orders" ? style.linkActive : ""}`}>История заказов</Link>

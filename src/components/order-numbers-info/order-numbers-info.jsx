@@ -1,11 +1,13 @@
+import { useSelector } from 'react-redux';
 import style from './order-numbers-info.module.css';
 import { v4 as uuidv4 } from 'uuid';
-import PropTypes from "prop-types";
 
-export default function OrderNumbersInfo({ data }) {
+export default function OrderNumbersInfo() {
+
+    const data = useSelector(state => state.feed.feeds)
 
     const getReadyOrders = (items, status) => {
-        let i = 30
+        let i = 10
         if (status === "ready") {
             return items.map(item => {
                 i--
@@ -30,17 +32,17 @@ export default function OrderNumbersInfo({ data }) {
             <div className={style.orders}>
                 <div className={style.ordersBox}>
                     <h3 className="text text_type_main-medium">Готовы:</h3>
-                    <ul className={style.readyOrdersList}>{getReadyOrders(data, "ready")}</ul>
+                    <ul className={style.readyOrdersList}>{getReadyOrders(data.orders, "ready")}</ul>
                 </div>
                 <div className={style.ordersBox}>
                     <h3 className="text text_type_main-medium">В работе:</h3>
-                    <ul className={style.readyOrdersList}>{getReadyOrders(data, "inWork")}</ul>
+                    <ul className={style.readyOrdersList}>{getReadyOrders(data.orders, "inWork")}</ul>
                 </div>
             </div>
+            <h3 className="text text_type_main-medium mt-15">Выполнено за все время:</h3>
+            <p className={`${style.total} text text_type_digits-large`}>{data.total}</p>
+            <h3 className="text text_type_main-medium mt-15">Выполнено за сегодня:</h3>
+            <p className={`${style.total} text text_type_digits-large`}>{data.totalToday}</p>
         </div>
     )
 }
-
-OrderNumbersInfo.propTypes = {
-    data: PropTypes.array.isRequired
-};
