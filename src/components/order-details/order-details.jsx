@@ -39,7 +39,7 @@ export default function OrderDetails({ status }) {
         const arr = [];
         return items.map(item => {
             let num = 0;
-            items.map(ingredient => {
+            items.forEach(ingredient => {
                 if (ingredient === item) {
                     num++
                 }
