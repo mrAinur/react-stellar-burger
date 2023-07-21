@@ -1,7 +1,7 @@
-.button{
-    composes: button from "../burger-constructor/burger-constructor.module.css";
+.button {
+  composes: button from "../burger-constructor/burger-constructor.module.css";
 }
 
-.paragraph{
-    composes: paragraph from "../burger-constructor/burger-constructor.module.css";
+.paragraph {
+  composes: paragraph from "../burger-constructor/burger-constructor.module.css";
 }

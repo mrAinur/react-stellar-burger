@@ -1,39 +1,39 @@
 .main {
-    margin: 0 auto;
-    padding: 0 8px 0 0;
-    display: grid;
-    max-width: 1240px;
-    grid-template-columns: repeat(2, fit-content(600px));
-    grid-template-rows: repeat(2, fit-content(744px));
-    grid-template-areas:
-        "title title"
-        "orders info";
-    gap: 20px 56px;
+  margin: 0 auto;
+  padding: 0 8px 0 0;
+  display: grid;
+  max-width: 1240px;
+  grid-template-columns: repeat(2, fit-content(600px));
+  grid-template-rows: repeat(2, fit-content(744px));
+  grid-template-areas:
+    "title title"
+    "orders info";
+  gap: 20px 56px;
 }
 
 .title {
-    padding: 0;
-    grid-area: title;
+  padding: 0;
+  grid-area: title;
 }
 
 .orders {
-    margin: 0;
-    padding: 0 8px 0 0;
-    grid-area: orders;
-    display: flex;
-    flex-direction: column;
-    max-height: 744px;
-    overflow-y: scroll;
-    list-style-type: none;
+  margin: 0;
+  padding: 0 8px 0 0;
+  grid-area: orders;
+  display: flex;
+  flex-direction: column;
+  max-height: 744px;
+  overflow-y: scroll;
+  list-style-type: none;
 }
 
-.link{
-    margin: 16px 0 0 0;
-    padding: 0;
-    text-decoration: none;
-    color: #F2F2F3;
+.link {
+  margin: 16px 0 0 0;
+  padding: 0;
+  text-decoration: none;
+  color: #f2f2f3;
 }
 
-.link:first-of-type{
-    margin: 0;
+.link:first-of-type {
+  margin: 0;
 }

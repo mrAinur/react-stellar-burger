@@ -1,46 +1,47 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   getUser: false,
   user: {
     email: "",
-    name: ""
+    name: "",
   },
   setUserData: {
     email: "",
     name: "",
-    password: ""
-  }
-}
+    password: "",
+  },
+};
 
 const userData = createSlice({
-  name: 'user',
+  name: "user",
   initialState,
   reducers: {
     getUserInfo: (state, action) => {
-      state.user.email = action.payload.email
-      state.user.name = action.payload.name
-      state.setUserData.email = action.payload.email
-      state.setUserData.name = action.payload.name
-      state.getUser = true
+      state.user.email = action.payload.email;
+      state.user.name = action.payload.name;
+      state.setUserData.email = action.payload.email;
+      state.setUserData.name = action.payload.name;
+      state.getUser = true;
     },
     setUserInfo: (state, action) => {
-      action.payload.name === "name" ? 
-      state.setUserData.name = action.payload.value : 
-      action.payload.name === "email" ? 
-      state.setUserData.email = action.payload.value :
-      state.setUserData.password = action.payload.value
+      action.payload.name === "name"
+        ? (state.setUserData.name = action.payload.value)
+        : action.payload.name === "email"
+        ? (state.setUserData.email = action.payload.value)
+        : (state.setUserData.password = action.payload.value);
     },
-    cancelSetUserInfo: (state) => {
+    cancelSetUserInfo: state => {
       state.setUserData = {
         email: state.user.email,
         name: state.user.name,
-        password: ""
-      }
+        password: "",
+      };
     },
-    reset: () => initialState
-  }
-})
+    reset: () => initialState,
+  },
+});
 
 export const user = userData.reducer;
-export const { getUserInfo, setUserInfo, cancelSetUserInfo, reset } = userData.actions;
+export const { getUserInfo, setUserInfo, cancelSetUserInfo, reset } =
+  userData.actions;

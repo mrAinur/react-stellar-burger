@@ -1,34 +1,33 @@
-import { getInfo } from '../../../../utils/getAPI';
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { getInfo } from "../../../../utils/getAPI";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 const initialState = {
   load: true,
   loadError: false,
   ingredients: [],
-  activeTab: "bun"
-}
+  activeTab: "bun",
+};
 
 export const getIngredientsInfo = createAsyncThunk("info/getInfo", async () => {
   const ingredients = await getInfo();
-  return ingredients.data
-})
+  return ingredients.data;
+});
 
 const getIngredients = createSlice({
-  name: 'getIngredients',
+  name: "getIngredients",
   initialState,
   reducers: {
     activeNuv: (state, action) => {
-      state.activeTab = action.payload
-    }
+      state.activeTab = action.payload;
+    },
   },
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     builder.addCase(getIngredientsInfo.fulfilled, (state, action) => {
-      state.ingredients = action.payload
-      state.load = false
-    })
+      state.ingredients = action.payload;
+      state.load = false;
+    });
   },
-})
+});
 
 export const getIngredientsData = getIngredients.reducer;
 export const { activeNuv } = getIngredients.actions;
-

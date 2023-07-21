@@ -1,16 +1,16 @@
 .main {
-    composes: main from "../login/login.module.css";
+  composes: main from "../login/login.module.css";
 }
 
 .loginForm {
-    composes: loginForm from "../login/login.module.css";
+  composes: loginForm from "../login/login.module.css";
 }
 
-.button{
-    composes: button from "../login/login.module.css";
-    max-width: 253px;
+.button {
+  composes: button from "../login/login.module.css";
+  max-width: 253px;
 }
 
-.paragraphLink{
-    composes: paragraphLink from "../login/login.module.css";
+.paragraphLink {
+  composes: paragraphLink from "../login/login.module.css";
 }

@@ -1,75 +1,75 @@
 .main {
-    margin: 44px 0 0 340px;
-    padding: 0;
-    max-width: 1240px;
-    display: grid;
-    grid-template-columns: repeat(2, fit-content(480px));
-    grid-template-rows: repeat(1, fit-content(868px));
-    gap: 40px;
+  margin: 44px 0 0 340px;
+  padding: 0;
+  max-width: 1240px;
+  display: grid;
+  grid-template-columns: repeat(2, fit-content(480px));
+  grid-template-rows: repeat(1, fit-content(868px));
+  gap: 40px;
 }
 
-.menu{
-    margin: 76px 0 0 0;
-    padding: 0;
+.menu {
+  margin: 76px 0 0 0;
+  padding: 0;
 }
 
-.loginForm{
-    margin: 76px 0 0 0;
-    padding: 0;
+.loginForm {
+  margin: 76px 0 0 0;
+  padding: 0;
 }
 
 .links {
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 .link {
-    margin: 0;
-    padding: 0;
-    min-height: 64px;
-    text-decoration: none;
+  margin: 0;
+  padding: 0;
+  min-height: 64px;
+  text-decoration: none;
 }
 
 .linkActive {
-    color: #F2F2F3;
+  color: #f2f2f3;
 }
 
 .link:first-of-type {
-    margin-top: 18px;
+  margin-top: 18px;
 }
 
 .paragraph {
-    margin: 80px 0 0 0;
-    padding: 0;
-    color: #8585AD;
-    opacity: .4;
-    max-width: 320px;
+  margin: 80px 0 0 0;
+  padding: 0;
+  color: #8585ad;
+  opacity: 0.4;
+  max-width: 320px;
 }
 
 .buttons {
-    padding: 0;
-    display: flex;
-    align-items: center;
-    justify-content: end;
-    gap: 28px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  gap: 28px;
 }
 
 .button {
-    padding: 0;
-    max-width: 167px;
+  padding: 0;
+  max-width: 167px;
 }
 
 .paragraphLink {
-    margin: 0 0 0 8px;
-    padding: 0;
-    color: #4C4CFF;
-    text-decoration: none;
-    cursor: pointer;
+  margin: 0 0 0 8px;
+  padding: 0;
+  color: #4c4cff;
+  text-decoration: none;
+  cursor: pointer;
 }
 
-.form{
-    margin: 0;
-    padding: 0;
+.form {
+  margin: 0;
+  padding: 0;
 }

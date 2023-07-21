@@ -1,9 +1,8 @@
-import NavButtons from './nav-buttons/nav-buttons';
-import style from './burger-ingredients.module.css';
-import IngredientsBoxScroll from './ingredients-box-scroll/ingredients-box-scroll';
+import NavButtons from "./nav-buttons/nav-buttons";
+import style from "./burger-ingredients.module.css";
+import IngredientsBoxScroll from "./ingredients-box-scroll/ingredients-box-scroll";
 
 export default function BurgerConstructor() {
-
   return (
     <article className={style.main}>
       <h2 className="text text_type_main-large mt-10 ml-3">Соберите бургер</h2>
@@ -12,5 +11,5 @@ export default function BurgerConstructor() {
       </nav>
       <IngredientsBoxScroll />
     </article>
-  )
+  );
 }

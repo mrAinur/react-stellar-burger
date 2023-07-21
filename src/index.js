@@ -3,8 +3,8 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./components/app/app";
 import reportWebVitals from "./reportWebVitals";
-import { Provider } from 'react-redux';
-import { configureStore } from '@reduxjs/toolkit';
+import { Provider } from "react-redux";
+import { configureStore } from "@reduxjs/toolkit";
 import { getOrderData } from "./pages/constructore/burger-constructor/services/burger-ingredients";
 import { getIngredientsData } from "./pages/constructore/burger-ingredients/services/burger-ingredients";
 import { loginUser } from "./pages/login/services/login";
@@ -14,13 +14,45 @@ import { resetPasswordWithToken } from "./pages/reset-password/services/reset-pa
 import { BrowserRouter as Router } from "react-router-dom";
 import { wsFeedReducer } from "./pages/feeds/services/reducers/feedReducers";
 import { feedSocketMiddleware } from "./pages/feeds/services/middleware/feedMiddleware";
-import { wsFeedConnect, wsFeedDisconnect, wsFeedConnecting, wsFeedOpen, wsFeedClose, wsFeedMessage, wsFeedError } from "./pages/feeds/services/actions/feedActions";
+import {
+  wsFeedConnect,
+  wsFeedDisconnect,
+  wsFeedConnecting,
+  wsFeedOpen,
+  wsFeedClose,
+  wsFeedMessage,
+  wsFeedError,
+} from "./pages/feeds/services/actions/feedActions";
 import { ordersSocketMiddleware } from "./pages/orders/services/middleware/ordersMiddleware";
-import { wsOrdersConnect, wsOrdersDisconnect, wsOrdersConnecting, wsOrdersOpen, wsOrdersClose, wsOrdersMessage, wsOrdersError } from "./pages/orders/services/actions/ordersActions";
+import {
+  wsOrdersConnect,
+  wsOrdersDisconnect,
+  wsOrdersConnecting,
+  wsOrdersOpen,
+  wsOrdersClose,
+  wsOrdersMessage,
+  wsOrdersError,
+} from "./pages/orders/services/actions/ordersActions";
 import { wsOrdersReducer } from "./pages/orders/services/reducers/ordersReducers";
 
-const feedMiddleware = feedSocketMiddleware({ wsFeedConnect, wsFeedDisconnect, wsFeedConnecting, wsFeedOpen, wsFeedClose, wsFeedMessage, wsFeedError });
-const orderMiddleware = ordersSocketMiddleware({ wsOrdersConnect, wsOrdersDisconnect, wsOrdersConnecting, wsOrdersOpen, wsOrdersClose, wsOrdersMessage, wsOrdersError })
+const feedMiddleware = feedSocketMiddleware({
+  wsFeedConnect,
+  wsFeedDisconnect,
+  wsFeedConnecting,
+  wsFeedOpen,
+  wsFeedClose,
+  wsFeedMessage,
+  wsFeedError,
+});
+const orderMiddleware = ordersSocketMiddleware({
+  wsOrdersConnect,
+  wsOrdersDisconnect,
+  wsOrdersConnecting,
+  wsOrdersOpen,
+  wsOrdersClose,
+  wsOrdersMessage,
+  wsOrdersError,
+});
 
 const store = configureStore({
   reducer: {
@@ -31,10 +63,11 @@ const store = configureStore({
     user,
     resetPassword: resetPasswordWithToken,
     feed: wsFeedReducer,
-    ordersHistory: wsOrdersReducer
+    ordersHistory: wsOrdersReducer,
   },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(feedMiddleware, orderMiddleware),
-  devTools: process.env.NODE_ENV !== 'production',
+  middleware: getDefaultMiddleware =>
+    getDefaultMiddleware().concat(feedMiddleware, orderMiddleware),
+  devTools: process.env.NODE_ENV !== "production",
   enhancers: [],
 });
 
@@ -46,7 +79,7 @@ ReactDOM.render(
       </Router>
     </Provider>
   </React.StrictMode>,
-  document.getElementById("root")
+  document.getElementById("root"),
 );
 
 // If you want to start measuring performance in your app, pass a function

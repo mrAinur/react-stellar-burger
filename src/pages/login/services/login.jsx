@@ -1,31 +1,31 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   login: {
     email: "",
-    password: ""
+    password: "",
   },
-  isAuthChecked: false
-}
+  isAuthChecked: false,
+};
 
 const login = createSlice({
-  name: 'login',
+  name: "login",
   initialState,
   reducers: {
-    checkedUser: (state) => {
-      state.isAuthChecked = true
+    checkedUser: state => {
+      state.isAuthChecked = true;
     },
     changeLoginInfo: (state, action) => {
-      action.payload.name === "email" ? 
-      state.login.email = action.payload.value : 
-      state.login.password = action.payload.value
+      action.payload.name === "email"
+        ? (state.login.email = action.payload.value)
+        : (state.login.password = action.payload.value);
     },
-    clearLoginInfo: (state) => { 
-      state.login.email = "" 
-      state.login.password = ""
-    }
-  }
-})
+    clearLoginInfo: state => {
+      state.login.email = "";
+      state.login.password = "";
+    },
+  },
+});
 
 export const loginUser = login.reducer;
 export const { checkedUser, changeLoginInfo, clearLoginInfo } = login.actions;
