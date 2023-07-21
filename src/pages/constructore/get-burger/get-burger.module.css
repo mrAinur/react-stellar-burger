@@ -1,0 +1,9 @@
+.GetBurgerContent {
+  margin: 0 auto;
+  padding: 0;
+  max-width: 1240px;
+  display: grid;
+  grid-template-columns: repeat(2, fit-content(610px));
+  grid-template-rows: repeat(1, fit-content(912px));
+  gap: 40px;
+}

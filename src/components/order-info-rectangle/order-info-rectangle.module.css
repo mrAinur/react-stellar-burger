@@ -1,0 +1,149 @@
+.main {
+  margin: 16px 0 0 0;
+  padding: 0;
+  display: flex;
+  padding: 24px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+  border-radius: 40px;
+  background-color: #1c1c21;
+}
+
+.main:first-of-type {
+  margin-top: 0;
+}
+
+.date {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: space-between;
+  min-width: 100%;
+}
+
+.title {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  max-width: 100%;
+}
+
+.ingredients {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-width: 100%;
+}
+
+.imgBox {
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+.list {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  display: flex;
+}
+
+.listItem {
+  margin: 0 -15px 0 0;
+  padding: 0;
+  border-radius: 100px;
+  background-color: #131316;
+  border: 2px solid;
+  border-color: #7f01f4;
+  height: 56px;
+  width: 56px;
+  object-fit: cover;
+}
+
+.img {
+  margin: 0;
+  padding: 0;
+  border-radius: 100px;
+  height: 56px;
+  width: 56px;
+  object-fit: cover;
+}
+
+.img:first-of-type {
+  margin-left: 0;
+}
+
+.lastImg {
+  margin: 0 -15px 0 0;
+  padding: 0;
+  border-radius: 100px;
+  background-color: #131316;
+  border: 2px solid;
+  border-color: #7f01f4;
+  height: 56px;
+  width: 56px;
+  object-fit: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.lastImgItem {
+  margin: 0;
+  padding: 0;
+  border-radius: 100px;
+  background-color: #131316;
+  height: 56px;
+  width: 56px;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+.paragraph {
+  margin: 0;
+  padding: 0;
+}
+
+.paragraph::before {
+  content: "";
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 100px;
+  min-width: 100%;
+  min-height: 100%;
+  background-color: #000;
+  opacity: 0.5;
+  z-index: -1;
+}
+
+.price {
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+.default {
+  margin: -16px 0 0 0;
+  padding: 0;
+}
+
+.ready {
+  margin: -16px 0 0 0;
+  padding: 0;
+  color: #0cc;
+}
+
+.cancel {
+  margin: -16px 0 0 0;
+  padding: 0;
+  color: rgb(214, 88, 88);
+}

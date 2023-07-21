@@ -1,0 +1,13 @@
+.ingredient {
+  margin: 16px 0 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(1, 13px 536px);
+  grid-template-rows: repeat(1, fit-content(80px));
+  align-items: center;
+  gap: 16px 22px;
+}
+
+.ingredient:first-of-type {
+  margin: 0;
+}

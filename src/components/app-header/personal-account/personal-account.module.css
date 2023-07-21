@@ -1,8 +1,7 @@
 .button {
-    composes: button from "../work-with-burgers/burger-constructor/burger-constructor.module.css";
+  composes: button from "../work-with-burgers/burger-constructor/burger-constructor.module.css";
 }
 
 .paragraph {
-    composes: paragraph from "../work-with-burgers/burger-constructor/burger-constructor.module.css";
-    color: #8585AD;
+  composes: paragraph from "../work-with-burgers/burger-constructor/burger-constructor.module.css";
 }

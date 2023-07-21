@@ -1,0 +1,39 @@
+.cards {
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, fit-content(208px));
+  grid-template-rows: repeat(1, fit-content(272px));
+  gap: 32px 24px;
+}
+
+.scrollBox {
+  padding: 0;
+  max-height: 664px;
+  overflow-y: scroll;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 492px;
+}
+
+::-webkit-scrollbar-track {
+  background: #2f2f37;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #8585ad;
+}
+
+.scrollSection {
+  margin: 0;
+  padding: 0;
+}
+
+.link {
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  color: #f2f2f3;
+}
