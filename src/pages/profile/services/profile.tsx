@@ -37,13 +37,6 @@ const userData = createSlice({
       state.setUserData.name = action.payload.name;
       state.getUser = true;
     },
-    setUserInfo: (state, action) => {
-      action.payload.name === "name"
-        ? (state.setUserData.name = action.payload.value)
-        : action.payload.name === "email"
-        ? (state.setUserData.email = action.payload.value)
-        : (state.setUserData.password = action.payload.value);
-    },
     cancelSetUserInfo: state => {
       state.setUserData = {
         email: state.user.email,
@@ -56,5 +49,4 @@ const userData = createSlice({
 });
 
 export const user = userData.reducer;
-export const { getUserInfo, setUserInfo, cancelSetUserInfo, reset } =
-  userData.actions;
+export const { getUserInfo, cancelSetUserInfo, reset } = userData.actions;

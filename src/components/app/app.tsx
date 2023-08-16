@@ -12,7 +12,7 @@ import Feed from "../../pages/feeds/feed";
 import ForgotPassword from "../../pages/forgot-password/forgot-password";
 import ResetPassword from "../../pages/reset-password/reset-password";
 import Orders from "../../pages/orders/orders";
-import { useAppDispatch } from "../../types";
+import { useAppDispatch } from "../..";
 import { useEffect } from "react";
 import { checkUserAuth } from "../../utils/workWithApi";
 import IngredientDetails from "../ingredient-details/ingredient-details";

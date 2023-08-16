@@ -1,11 +1,9 @@
-import { useAppSelector } from "../../types";
+import { useAppSelector } from "../..";
 import style from "./order-info-rectangle.module.css";
 import {
   FormattedDate,
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { v4 as uuidv4 } from "uuid";
-import PropTypes from "prop-types";
 import { Order } from "../../utils/types";
 
 type Props = {
@@ -15,15 +13,14 @@ type Props = {
 
 export default function OrderInfoRectangle({ data, element }: Props) {
   const ingredients = useAppSelector(state => state.ingredients.ingredients);
-
   const getImg = (items: string[]) => {
     let i = 7;
-    return items.map(item => {
+    return items.map((item, index) => {
       i--;
       if (i > 1) {
         return (
           <li
-            key={uuidv4()}
+            key={index}
             className={style.listItem}
             style={{ position: "relative", zIndex: `${i}` }}
           >
@@ -38,7 +35,7 @@ export default function OrderInfoRectangle({ data, element }: Props) {
         return (
           <li
             className={style.lastImg}
-            key={uuidv4()}
+            key={index}
             style={{ position: "relative", zIndex: `${i}` }}
           >
             <img
@@ -120,8 +117,3 @@ export default function OrderInfoRectangle({ data, element }: Props) {
     </li>
   );
 }
-
-OrderInfoRectangle.propTypes = {
-  data: PropTypes.object.isRequired,
-  element: PropTypes.string.isRequired,
-};

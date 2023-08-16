@@ -71,6 +71,9 @@ const ingredientsOrder = createSlice({
     },
     clearOrderNumber: state => {
       state.orderNumber = null;
+      state.bun = [];
+      state.main = [];
+      state.fullPrice = 0;
     },
   },
   extraReducers: builder => {

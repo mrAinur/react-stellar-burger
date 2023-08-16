@@ -1,15 +1,16 @@
-import { useAppDispatch, useAppSelector } from "../../types";
+import { useAppDispatch, useAppSelector } from "../..";
 import style from "./profile.module.css";
 import {
   EmailInput,
   PasswordInput,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { setUserInfo, cancelSetUserInfo } from "./services/profile";
+import { cancelSetUserInfo } from "./services/profile";
 import { Link, useLocation } from "react-router-dom";
 import { editUser, logoutUser } from "../../utils/workWithApi";
 import { Outlet } from "react-router-dom";
-import { ChangeEvent, FormEvent, FormEventHandler } from "react";
+import { ChangeEvent, FormEventHandler } from "react";
+import { useForm } from "../../hooks/useForm";
 
 export default function Profile() {
   const dispatch = useAppDispatch();
@@ -20,18 +21,25 @@ export default function Profile() {
     state => state.user.setUserData,
   );
 
+  const { values, handleChange, setValues } = useForm({
+    name,
+    email,
+    password,
+  });
+
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-    dispatch(setUserInfo({ name: e.target.name, value: e.target.value }));
+    handleChange(e);
   };
 
-  const handleSubmit: FormEventHandler<HTMLFormElement> = (
-    e: FormEvent<HTMLFormElement>,
-  ) => {
+  const handleSubmit: FormEventHandler<HTMLFormElement> = e => {
     e.preventDefault();
-    dispatch(editUser(name, email, password));
+    dispatch(editUser(values.name, values.email, values.password));
   };
 
-  const cancel = () => dispatch(cancelSetUserInfo());
+  const cancel = () => {
+    dispatch(cancelSetUserInfo());
+    setValues({ name, email, password });
+  };
 
   return (
     <section className={style.main}>
@@ -81,14 +89,14 @@ export default function Profile() {
           <form className={style.form} onSubmit={handleSubmit}>
             <EmailInput
               onChange={onChange}
-              value={name}
+              value={values.name}
               name={"name"}
               placeholder="Имя"
               isIcon={true}
             />
             <EmailInput
               onChange={onChange}
-              value={email}
+              value={values.email}
               name={"email"}
               placeholder="Логин"
               isIcon={true}
@@ -96,7 +104,7 @@ export default function Profile() {
             />
             <PasswordInput
               onChange={onChange}
-              value={password}
+              value={values.password}
               name={"password"}
               extraClass="mt-6"
             />

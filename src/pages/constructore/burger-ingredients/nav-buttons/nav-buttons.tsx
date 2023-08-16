@@ -1,6 +1,6 @@
 import React from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useAppDispatch, useAppSelector } from "../../../../types";
+import { useAppDispatch, useAppSelector } from "../../../..";
 import { activeNuv } from "../services/burger-ingredients";
 import style from "./nav-buttons.module.css";
 

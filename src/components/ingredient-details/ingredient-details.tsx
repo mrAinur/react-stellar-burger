@@ -1,4 +1,4 @@
-import { useAppSelector } from "../../types";
+import { useAppSelector } from "../..";
 import { Ingredient } from "../../utils/types";
 import style from "./ingredient-details.module.css";
 import { useLocation, useParams } from "react-router-dom";

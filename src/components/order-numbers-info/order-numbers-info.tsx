@@ -1,4 +1,4 @@
-import { useAppSelector } from "../../types";
+import { useAppSelector } from "../..";
 import { Order } from "../../utils/types";
 import style from "./order-numbers-info.module.css";
 

@@ -5,7 +5,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDrag, useDrop } from "react-dnd";
 import style from "./main-ingredient.module.css";
-import { useAppDispatch } from "../../../../types";
+import { useAppDispatch } from "../../../..";
 import { deleteIngredient } from "../services/burger-ingredients";
 import { Ingredient } from "../../../../utils/types";
 

@@ -1,4 +1,4 @@
-import { useAppDispatch, useAppSelector } from "../../types";
+import { useAppDispatch } from "../..";
 import style from "./registration.module.css";
 import {
   EmailInput,
@@ -6,27 +6,27 @@ import {
   Button,
   Input,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { changeRegistrationData } from "./services/registration";
 import { Link } from "react-router-dom";
 import { registrationUser } from "../../utils/workWithApi";
-import { ChangeEvent, FormEvent, FormEventHandler } from "react";
+import { ChangeEvent, FormEventHandler } from "react";
+import { useForm } from "../../hooks/useForm";
 
 export default function Registration() {
   const dispatch = useAppDispatch();
 
-  const { name, email, password } = useAppSelector(state => state.registration);
+  const { values, handleChange } = useForm({
+    name: "",
+    email: "",
+    password: "",
+  });
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-    dispatch(
-      changeRegistrationData({ name: e.target.name, value: e.target.value }),
-    );
+    handleChange(e);
   };
 
-  const handleSubmit: FormEventHandler<HTMLFormElement> = (
-    e: FormEvent<HTMLFormElement>,
-  ) => {
+  const handleSubmit: FormEventHandler<HTMLFormElement> = e => {
     e.preventDefault();
-    dispatch(registrationUser(email, password, name));
+    dispatch(registrationUser(values.email, values.password, values.name));
   };
 
   return (
@@ -37,7 +37,7 @@ export default function Registration() {
           type={"text"}
           placeholder={"Имя"}
           onChange={onChange}
-          value={name}
+          value={values.name}
           name={"name"}
           error={false}
           errorText={"Ошибка"}
@@ -46,14 +46,14 @@ export default function Registration() {
         />
         <EmailInput
           onChange={onChange}
-          value={email}
+          value={values.email}
           name={"email"}
           isIcon={false}
           extraClass="mt-6"
         />
         <PasswordInput
           onChange={onChange}
-          value={password}
+          value={values.password}
           name={"password"}
           extraClass="mt-6"
         />

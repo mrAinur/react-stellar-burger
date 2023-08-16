@@ -1,4 +1,3 @@
-import { useAppDispatch, useAppSelector } from "../../types";
 import style from "./reset-password.module.css";
 import {
   PasswordInput,
@@ -6,29 +5,20 @@ import {
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, Navigate, useNavigate } from "react-router-dom";
-import { resetPasswordWithEmail } from "./services/reset-password";
 import { resetUserPassword } from "../../utils/workWithApi";
-import { ChangeEvent, FormEvent, FormEventHandler } from "react";
+import { ChangeEvent, FormEventHandler } from "react";
+import { useForm } from "../../hooks/useForm";
 
 export default function ResetPassword() {
-  const dispatch = useAppDispatch();
-
   const navigate = useNavigate();
 
-  const { password, token } = useAppSelector(
-    state => state.resetPassword.reset,
-  );
+  const { values, handleChange } = useForm({ password: "", token: "" });
 
-  const onChange = (e: ChangeEvent<HTMLInputElement>) =>
-    dispatch(
-      resetPasswordWithEmail({ name: e.target.name, value: e.target.value }),
-    );
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => handleChange(e);
 
-  const handleSubmit: FormEventHandler<HTMLFormElement> = (
-    e: FormEvent<HTMLFormElement>,
-  ) => {
+  const handleSubmit: FormEventHandler<HTMLFormElement> = e => {
     e.preventDefault();
-    dispatch(resetUserPassword(password, token));
+    resetUserPassword(values.password, values.token);
     navigate("/");
   };
 
@@ -38,7 +28,7 @@ export default function ResetPassword() {
         <h2 className="text text_type_main-medium">Восстановление пароля</h2>
         <PasswordInput
           onChange={onChange}
-          value={password}
+          value={values.password}
           name={"password"}
           placeholder="Введите новый пароль"
           extraClass="mt-6"
@@ -47,7 +37,7 @@ export default function ResetPassword() {
           type={"text"}
           placeholder={"Введите код из письма"}
           onChange={onChange}
-          value={token}
+          value={values.token}
           name={"token"}
           error={false}
           size={"default"}

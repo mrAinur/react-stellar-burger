@@ -1,4 +1,4 @@
-import { useAppDispatch, useAppSelector } from "../../types";
+import { useAppDispatch } from "../..";
 import style from "./login.module.css";
 import {
   EmailInput,
@@ -6,24 +6,22 @@ import {
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link } from "react-router-dom";
-import { changeLoginInfo } from "./services/login";
 import { loginUser } from "../../utils/workWithApi";
-import { ChangeEvent, FormEvent, FormEventHandler } from "react";
+import { ChangeEvent, FormEventHandler } from "react";
+import { useForm } from "../../hooks/useForm";
 
 export default function Login() {
   const dispatch = useAppDispatch();
 
-  const { email, password } = useAppSelector(state => state.login.login);
+  const { values, handleChange } = useForm({ email: "", password: "" });
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-    dispatch(changeLoginInfo({ name: e.target.name, value: e.target.value }));
+    handleChange(e);
   };
 
-  const handleSubmit: FormEventHandler<HTMLFormElement> = (
-    e: FormEvent<HTMLFormElement>,
-  ) => {
+  const handleSubmit: FormEventHandler<HTMLFormElement> = e => {
     e.preventDefault();
-    dispatch(loginUser(email, password));
+    dispatch(loginUser(values.email, values.password));
   };
 
   return (
@@ -32,14 +30,14 @@ export default function Login() {
         <h2 className="text text_type_main-medium">Вход</h2>
         <EmailInput
           onChange={onChange}
-          value={email}
+          value={values.email}
           name={"email"}
           isIcon={false}
           extraClass="mt-6"
         />
         <PasswordInput
           onChange={onChange}
-          value={password}
+          value={values.password}
           name={"password"}
           extraClass="mt-6"
         />

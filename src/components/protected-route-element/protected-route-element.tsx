@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { useAppSelector } from "../../types";
+import { useAppSelector } from "../..";
 import { Navigate, useLocation } from "react-router-dom";
 
 type Props = {

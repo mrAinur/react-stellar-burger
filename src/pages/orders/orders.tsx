@@ -1,4 +1,4 @@
-import { useAppDispatch, useAppSelector } from "../../types";
+import { useAppDispatch, useAppSelector } from "../..";
 import style from "./orders.module.css";
 import { useEffect } from "react";
 import {
@@ -43,7 +43,7 @@ export default function Orders() {
     return () => {
       dispatch(wsOrdersDisconnect());
     };
-  }, [dispatch]);
+  }, []);
 
   return data ? (
     <ul className={style.main}>{getOrderInfo(data)}</ul>

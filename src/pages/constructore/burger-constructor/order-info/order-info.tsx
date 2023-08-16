@@ -3,9 +3,8 @@ import {
   CurrencyIcon,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import PropTypes from "prop-types";
-import { useAppDispatch, useAppSelector } from "../../../../types";
-import { getOrderInfo } from "../services/burger-ingredients";
+import { useAppDispatch, useAppSelector } from "../../../..";
+import { clearOrderNumber, getOrderInfo } from "../services/burger-ingredients";
 import { useNavigate } from "react-router-dom";
 
 type Props = {
@@ -31,6 +30,7 @@ export default function OrderInfo({ openModal }: Props) {
 
   const getOrder = () => {
     if (user) {
+      dispatch(clearOrderNumber());
       dispatch(getOrderInfo(ingredientsId));
       openModal();
     } else {
@@ -68,7 +68,3 @@ export default function OrderInfo({ openModal }: Props) {
     </div>
   );
 }
-
-OrderInfo.propTypes = {
-  openModal: PropTypes.func.isRequired,
-};

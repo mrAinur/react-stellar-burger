@@ -2,7 +2,7 @@ import React from "react";
 import style from "./ingredients-box-scroll.module.css";
 import Ingredient from "../ingredient/ingredient";
 import { ingredientsTypes } from "../../../../utils/constants";
-import { useAppDispatch, useAppSelector } from "../../../../types";
+import { useAppDispatch, useAppSelector } from "../../../..";
 import { useInView } from "react-intersection-observer";
 import { activeNuv } from "../services/burger-ingredients";
 import { Link, useLocation } from "react-router-dom";

@@ -23,11 +23,6 @@ const login = createSlice({
     checkedUser: state => {
       state.isAuthChecked = true;
     },
-    changeLoginInfo: (state, action) => {
-      action.payload.name === "email"
-        ? (state.login.email = action.payload.value)
-        : (state.login.password = action.payload.value);
-    },
     clearLoginInfo: state => {
       state.login.email = "";
       state.login.password = "";
@@ -36,4 +31,4 @@ const login = createSlice({
 });
 
 export const loginUser = login.reducer;
-export const { checkedUser, changeLoginInfo, clearLoginInfo } = login.actions;
+export const { checkedUser, clearLoginInfo } = login.actions;

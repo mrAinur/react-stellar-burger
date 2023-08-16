@@ -3,9 +3,8 @@ import {
   CurrencyIcon,
   Counter,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { ingredientPropType } from "../../../../utils/prop-types";
 import { useDrag } from "react-dnd";
-import { useAppSelector } from "../../../../types";
+import { useAppSelector } from "../../../..";
 import { Ingredient as data } from "../../../../utils/types";
 
 type Props = {
@@ -57,7 +56,3 @@ export default function Ingredient({ card }: Props) {
     </li>
   );
 }
-
-Ingredient.propTypes = {
-  card: ingredientPropType.isRequired,
-};

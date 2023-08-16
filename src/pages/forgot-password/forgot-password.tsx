@@ -1,26 +1,21 @@
-import { useAppDispatch, useAppSelector } from "../../types";
 import style from "./forgot-password.module.css";
 import {
   EmailInput,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, useNavigate } from "react-router-dom";
-import { setEmail } from "../reset-password/services/reset-password";
 import { getResetEmail } from "../../utils/workWithApi";
-import { FormEvent, FormEventHandler } from "react";
+import { FormEventHandler } from "react";
+import { useForm } from "../../hooks/useForm";
 
 export default function ForgotPassword() {
-  const dispatch = useAppDispatch();
-
   const navigate = useNavigate();
 
-  const email = useAppSelector(state => state.resetPassword.email);
+  const { values, handleChange } = useForm({ email: "" });
 
-  const handleSubmit: FormEventHandler<HTMLFormElement> = async (
-    e: FormEvent<HTMLFormElement>,
-  ) => {
+  const handleSubmit: FormEventHandler<HTMLFormElement> = async e => {
     e.preventDefault();
-    await getResetEmail(email);
+    await getResetEmail(values.email);
     navigate("/reset-password");
   };
 
@@ -29,8 +24,8 @@ export default function ForgotPassword() {
       <form className={style.loginForm} onSubmit={handleSubmit}>
         <h2 className="text text_type_main-medium">Восстановление пароля</h2>
         <EmailInput
-          onChange={e => dispatch(setEmail(e.target.value))}
-          value={email}
+          onChange={e => handleChange(e)}
+          value={values.email}
           name={"email"}
           isIcon={false}
           placeholder="Укажите email"

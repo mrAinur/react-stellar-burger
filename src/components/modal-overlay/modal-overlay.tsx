@@ -1,11 +1,10 @@
-import { useAppDispatch } from "../../types";
+import { useAppDispatch } from "../..";
 import style from "./modal-overlay.module.css";
-import PropTypes from "prop-types";
 import { clearOrderNumber } from "../../pages/constructore/burger-constructor/services/burger-ingredients";
 import { ReactNode } from "react";
 
 type Props = {
-  children: ReactNode & { type: { name: string } };
+  children: ReactNode;
   onClose: () => void;
 };
 
@@ -23,7 +22,3 @@ export default function ModalOverlay({ children, onClose }: Props) {
     </div>
   );
 }
-ModalOverlay.propTypes = {
-  children: PropTypes.object.isRequired,
-  onClose: PropTypes.func.isRequired,
-};

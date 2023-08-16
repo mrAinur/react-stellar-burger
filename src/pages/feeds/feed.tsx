@@ -1,4 +1,4 @@
-import { useAppDispatch, useAppSelector } from "../../types";
+import { useAppDispatch, useAppSelector } from "../..";
 import style from "./feed.module.css";
 import { useEffect } from "react";
 import {
@@ -47,7 +47,7 @@ export default function Feed() {
     return () => {
       dispatch(wsFeedDisconnect());
     };
-  }, [dispatch]);
+  }, []);
 
   if (!feeds) {
     return <div>Загрузка</div>;

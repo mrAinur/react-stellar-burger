@@ -5,17 +5,21 @@ function checkResponse<T>(res: Response): Promise<T> {
   return res.ok ? res.json() : res.json().then(err => Promise.reject(err));
 }
 
+function request<T>(url: string, options: Options) {
+  return fetch(url, options).then(res => checkResponse<T>(res));
+}
+
 export function getInfo<T>() {
-  return fetch(`${baseURL}ingredients`, {
+  return request<T>(`${baseURL}ingredients`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
     },
-  }).then(res => checkResponse<T>(res));
+  });
 }
 
 export function getOrder<T>(item: string[]) {
-  return fetch(`${baseURL}orders`, {
+  return request<T>(`${baseURL}orders`, {
     method: "POST",
     body: JSON.stringify({
       ingredients: item,
@@ -24,11 +28,11 @@ export function getOrder<T>(item: string[]) {
       authorization: localStorage.getItem(accessToken)!,
       "Content-Type": "application/json",
     },
-  }).then(res => checkResponse<T>(res));
+  });
 }
 
 export function getNewUser<T>(email: string, password: string, name: string) {
-  return fetch(`${baseURL}auth/register`, {
+  return request<T>(`${baseURL}auth/register`, {
     method: "POST",
     body: JSON.stringify({
       email: email,
@@ -38,11 +42,11 @@ export function getNewUser<T>(email: string, password: string, name: string) {
     headers: {
       "Content-Type": "application/json",
     },
-  }).then(res => checkResponse<T>(res));
+  });
 }
 
 export function getLoginUser<T>(email: string, password: string) {
-  return fetch(`${baseURL}auth/login`, {
+  return request<T>(`${baseURL}auth/login`, {
     method: "POST",
     body: JSON.stringify({
       email,
@@ -51,11 +55,11 @@ export function getLoginUser<T>(email: string, password: string) {
     headers: {
       "Content-Type": "application/json",
     },
-  }).then(res => checkResponse<T>(res));
+  });
 }
 
-export function getLogoutUser() {
-  return fetch(`${baseURL}auth/logout`, {
+export function getLogoutUser<T>() {
+  return request<T>(`${baseURL}auth/logout`, {
     method: "POST",
     body: JSON.stringify({
       token: `${localStorage.refreshToken}`,
@@ -63,11 +67,11 @@ export function getLogoutUser() {
     headers: {
       "Content-Type": "application/json",
     },
-  }).then(res => checkResponse(res));
+  });
 }
 
-export function forgotPassword(email: string) {
-  return fetch(`${baseURL}password-reset`, {
+export function forgotPassword<T>(email: string) {
+  return request<T>(`${baseURL}password-reset`, {
     method: "POST",
     body: JSON.stringify({
       email,
@@ -75,11 +79,11 @@ export function forgotPassword(email: string) {
     headers: {
       "Content-Type": "application/json",
     },
-  }).then(res => checkResponse(res));
+  });
 }
 
-export function resetPassword(password: string, token: string) {
-  return fetch(`${baseURL}password-reset/reset`, {
+export function resetPassword<T>(password: string, token: string) {
+  return request<T>(`${baseURL}password-reset/reset`, {
     method: "POST",
     body: JSON.stringify({
       password,
@@ -88,7 +92,7 @@ export function resetPassword(password: string, token: string) {
     headers: {
       "Content-Type": "application/json",
     },
-  }).then(res => checkResponse(res));
+  });
 }
 
 export function getUserInfoApi<T>() {
@@ -121,7 +125,7 @@ export function editUserInfoApi<T>(
 }
 
 export function refreshUserInfoApi<T>() {
-  return fetch(`${baseURL}auth/token`, {
+  return request<T>(`${baseURL}auth/token`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json;charset=utf-8",
@@ -129,13 +133,13 @@ export function refreshUserInfoApi<T>() {
     body: JSON.stringify({
       token: localStorage.getItem(refreshToken),
     }),
-  }).then(res => checkResponse<T>(res));
+  });
 }
 
 export async function fetchWithRefresh<T>(url: string, options: Options) {
   try {
-    const res = await fetch(url, options);
-    return await checkResponse<T>(res);
+    const res = await request<T>(url, options);
+    return res;
   } catch (err) {
     if (err.message === "jwt expired") {
       const refreshData = (await refreshUserInfoApi<T>()) as RefreshData;
@@ -145,8 +149,8 @@ export async function fetchWithRefresh<T>(url: string, options: Options) {
       localStorage.setItem(accessToken, refreshData.accessToken);
       localStorage.setItem(refreshToken, refreshData.refreshToken);
       options.headers.authorization = refreshData.accessToken;
-      const res = await fetch(url, options);
-      return await checkResponse<T>(res);
+      const res = await request<T>(url, options);
+      return res;
     } else {
       return Promise.reject(err);
     }
@@ -154,10 +158,10 @@ export async function fetchWithRefresh<T>(url: string, options: Options) {
 }
 
 export function getOldOrder<T>(item: string) {
-  return fetch(`${baseURL}orders/${item}`, {
+  return request<T>(`${baseURL}orders/${item}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json;charset=utf-8",
     },
-  }).then(res => checkResponse<T>(res));
+  });
 }

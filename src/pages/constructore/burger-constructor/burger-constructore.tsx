@@ -4,7 +4,7 @@ import OrderInfo from "./order-info/order-info";
 import { useCallback } from "react";
 import Modal from "../../../components/modal/modal";
 import OrderDetails from "../../../components/order-num/order-num";
-import { useAppDispatch, useAppSelector } from "../../../types";
+import { useAppDispatch, useAppSelector } from "../../..";
 import { useDrop } from "react-dnd";
 import {
   addBun,

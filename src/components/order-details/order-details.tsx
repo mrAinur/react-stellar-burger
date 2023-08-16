@@ -1,6 +1,5 @@
-import { useAppSelector } from "../../types";
+import { useAppSelector } from "../..";
 import style from "./order-details.module.css";
-import PropTypes from "prop-types";
 import { useLocation } from "react-router-dom";
 import {
   CurrencyIcon,
@@ -170,7 +169,3 @@ export default function OrderDetails({ status }: Props) {
     </div>
   );
 }
-
-OrderDetails.propTypes = {
-  status: PropTypes.string.isRequired,
-};

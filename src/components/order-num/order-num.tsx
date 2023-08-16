@@ -1,6 +1,6 @@
 import style from "./order-num.module.css";
 import orderDetailImg from "../../images/done.svg";
-import { useAppSelector } from "../../types";
+import { useAppSelector } from "../..";
 
 export default function OrderNum() {
   const orderNumber = useAppSelector(state => state.order.orderNumber);
