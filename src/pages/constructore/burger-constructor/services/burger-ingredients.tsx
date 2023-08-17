@@ -79,9 +79,6 @@ const ingredientsOrder = createSlice({
   extraReducers: builder => {
     builder.addCase(getOrderInfo.fulfilled, (state, action) => {
       state.orderNumber = action.payload;
-      state.bun = [];
-      state.main = [];
-      state.fullPrice = 0;
     });
   },
 });

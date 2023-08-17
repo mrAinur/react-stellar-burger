@@ -13,3 +13,13 @@
   padding: 0;
   color: #8585ad;
 }
+
+.loader {
+  margin: 0;
+  padding: 0;
+  min-height: 71vh;
+  min-width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

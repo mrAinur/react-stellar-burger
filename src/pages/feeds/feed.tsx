@@ -9,6 +9,7 @@ import { wssFeedsURL } from "../../utils/constants";
 import OrderInfoRectangle from "../../components/order-info-rectangle/order-info-rectangle";
 import OrderNumbersInfo from "../../components/order-numbers-info/order-numbers-info";
 import { Link, useLocation } from "react-router-dom";
+import { SpinnerRoundOutlined } from "spinners-react";
 
 type Order = {
   _id: string;
@@ -49,8 +50,12 @@ export default function Feed() {
     };
   }, []);
 
-  if (!feeds) {
-    return <div>Загрузка</div>;
+  if (!feeds.orders.length) {
+    return (
+      <div className={style.loader}>
+        <SpinnerRoundOutlined color="4a00c2" size={90} />
+      </div>
+    );
   }
 
   return (

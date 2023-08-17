@@ -9,6 +9,7 @@ import { wssOrdersURL, accessToken } from "../../utils/constants";
 import OrderInfoRectangle from "../../components/order-info-rectangle/order-info-rectangle";
 import { Link, useLocation } from "react-router-dom";
 import { Order } from "../../utils/types";
+import { SpinnerRoundOutlined } from "spinners-react";
 
 export default function Orders() {
   const dispatch = useAppDispatch();
@@ -45,9 +46,11 @@ export default function Orders() {
     };
   }, []);
 
-  return data ? (
+  return data.length ? (
     <ul className={style.main}>{getOrderInfo(data)}</ul>
   ) : (
-    <div>Загрузка</div>
+    <div className={style.loader}>
+      <SpinnerRoundOutlined color="4a00c2" size={90} />
+    </div>
   );
 }

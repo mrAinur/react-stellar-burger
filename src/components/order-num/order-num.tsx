@@ -1,9 +1,18 @@
 import style from "./order-num.module.css";
 import orderDetailImg from "../../images/done.svg";
 import { useAppSelector } from "../..";
+import { SpinnerRoundOutlined } from "spinners-react";
 
 export default function OrderNum() {
   const orderNumber = useAppSelector(state => state.order.orderNumber);
+
+  if (orderNumber === null) {
+    return (
+      <div className={style.loader}>
+        <SpinnerRoundOutlined color="4a00c2" size={90} />
+      </div>
+    );
+  }
 
   return (
     <>
