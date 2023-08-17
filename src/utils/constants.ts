@@ -12,6 +12,10 @@ const accessToken: string = "accessToken";
 
 const refreshToken: string = "refreshToken";
 
+const token: string | undefined = localStorage
+  .getItem(accessToken)
+  ?.replace("Bearer ", "");
+
 export {
   ingredientsTypes,
   accessToken,
@@ -19,4 +23,5 @@ export {
   wssFeedsURL,
   wssOrdersURL,
   baseURL,
+  token,
 };

@@ -114,3 +114,23 @@
   padding: 0;
   display: flex;
 }
+
+.loader {
+  margin: 0;
+  padding: 0;
+  min-height: 80vh;
+  min-width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loaderWithBackground {
+  margin: 0;
+  padding: 0;
+  min-height: 47vh;
+  min-width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

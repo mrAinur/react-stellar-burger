@@ -12,6 +12,7 @@ import {
   Order,
   OrderDetailsWithoutBackgroundAnswer,
 } from "../../utils/types";
+import { SpinnerRoundOutlined } from "spinners-react";
 
 type Props = { status: string };
 
@@ -137,7 +138,15 @@ export default function OrderDetails({ status }: Props) {
   }, [dataPrivate, dataPublic]);
 
   if (data === undefined || data === null) {
-    return <div>Загрузка ингредиента</div>;
+    return (
+      <div
+        className={
+          background === null ? style.loader : style.loaderWithBackground
+        }
+      >
+        <SpinnerRoundOutlined color="4a00c2" size={90} />
+      </div>
+    );
   }
 
   return (

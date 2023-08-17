@@ -5,7 +5,7 @@ import {
   wsOrdersConnect,
   wsOrdersDisconnect,
 } from "./services/actions/ordersActions";
-import { wssOrdersURL, accessToken } from "../../utils/constants";
+import { wssOrdersURL, token } from "../../utils/constants";
 import OrderInfoRectangle from "../../components/order-info-rectangle/order-info-rectangle";
 import { Link, useLocation } from "react-router-dom";
 import { Order } from "../../utils/types";
@@ -19,10 +19,6 @@ export default function Orders() {
   const data = useAppSelector(state => state.ordersHistory.orders)
     ?.slice()
     .sort((a, b) => b.updatedAt.localeCompare(a.updatedAt));
-
-  const token: string | undefined = localStorage
-    .getItem(accessToken)
-    ?.replace("Bearer ", "");
 
   const getOrderInfo = (items: Order[]) => {
     return items.map((item: Order) => {

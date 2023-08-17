@@ -18,6 +18,7 @@ import {
   wsOrdersError,
 } from "../pages/orders/services/actions/ordersActions";
 import { AppDispatch, RootState } from "..";
+import { token, wssFeedsURL, wssOrdersURL } from "./constants";
 
 type CheckActions = {
   readonly type?:
@@ -81,7 +82,7 @@ export const socketMiddleware = (wsActions: CheckActions): Middleware => {
         socket = new WebSocket(action.payload);
         dispatch(wsFeedConnecting());
       }
-      if (socket) {
+      if (socket?.url === wssFeedsURL) {
         // функция, которая вызывается при открытии сокета
         socket.onopen = () => {
           dispatch(wsFeedOpen());
@@ -114,7 +115,7 @@ export const socketMiddleware = (wsActions: CheckActions): Middleware => {
         socket = new WebSocket(action.payload);
         dispatch(wsOrdersConnecting());
       }
-      if (socket) {
+      if (socket?.url === `${wssOrdersURL}?token=${token}`) {
         // функция, которая вызывается при открытии сокета
         socket.onopen = () => {
           dispatch(wsOrdersOpen());
