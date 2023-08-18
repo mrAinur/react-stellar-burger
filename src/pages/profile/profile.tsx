@@ -9,7 +9,7 @@ import { cancelSetUserInfo } from "./services/profile";
 import { Link, useLocation } from "react-router-dom";
 import { editUser, logoutUser } from "../../utils/workWithApi";
 import { Outlet } from "react-router-dom";
-import { ChangeEvent, FormEventHandler } from "react";
+import { FormEventHandler } from "react";
 import { useForm } from "../../hooks/useForm";
 
 export default function Profile() {
@@ -26,10 +26,6 @@ export default function Profile() {
     email,
     password,
   });
-
-  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-    handleChange(e);
-  };
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = e => {
     e.preventDefault();
@@ -88,14 +84,14 @@ export default function Profile() {
         <article className={style.loginForm}>
           <form className={style.form} onSubmit={handleSubmit}>
             <EmailInput
-              onChange={onChange}
+              onChange={e => handleChange(e)}
               value={values.name}
               name={"name"}
               placeholder="Имя"
               isIcon={true}
             />
             <EmailInput
-              onChange={onChange}
+              onChange={e => handleChange(e)}
               value={values.email}
               name={"email"}
               placeholder="Логин"
@@ -103,7 +99,7 @@ export default function Profile() {
               extraClass="mt-6"
             />
             <PasswordInput
-              onChange={onChange}
+              onChange={e => handleChange(e)}
               value={values.password}
               name={"password"}
               extraClass="mt-6"

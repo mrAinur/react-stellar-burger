@@ -6,15 +6,13 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { resetUserPassword } from "../../utils/workWithApi";
-import { ChangeEvent, FormEventHandler } from "react";
+import { FormEventHandler } from "react";
 import { useForm } from "../../hooks/useForm";
 
 export default function ResetPassword() {
   const navigate = useNavigate();
 
   const { values, handleChange } = useForm({ password: "", token: "" });
-
-  const onChange = (e: ChangeEvent<HTMLInputElement>) => handleChange(e);
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = e => {
     e.preventDefault();
@@ -27,7 +25,7 @@ export default function ResetPassword() {
       <form className={style.loginForm} onSubmit={handleSubmit}>
         <h2 className="text text_type_main-medium">Восстановление пароля</h2>
         <PasswordInput
-          onChange={onChange}
+          onChange={e => handleChange(e)}
           value={values.password}
           name={"password"}
           placeholder="Введите новый пароль"
@@ -36,7 +34,7 @@ export default function ResetPassword() {
         <Input
           type={"text"}
           placeholder={"Введите код из письма"}
-          onChange={onChange}
+          onChange={e => handleChange(e)}
           value={values.token}
           name={"token"}
           error={false}

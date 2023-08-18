@@ -7,17 +7,13 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link } from "react-router-dom";
 import { loginUser } from "../../utils/workWithApi";
-import { ChangeEvent, FormEventHandler } from "react";
+import { FormEventHandler } from "react";
 import { useForm } from "../../hooks/useForm";
 
 export default function Login() {
   const dispatch = useAppDispatch();
 
   const { values, handleChange } = useForm({ email: "", password: "" });
-
-  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-    handleChange(e);
-  };
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = e => {
     e.preventDefault();
@@ -29,14 +25,14 @@ export default function Login() {
       <form className={style.loginForm} onSubmit={handleSubmit}>
         <h2 className="text text_type_main-medium">Вход</h2>
         <EmailInput
-          onChange={onChange}
+          onChange={e => handleChange(e)}
           value={values.email}
           name={"email"}
           isIcon={false}
           extraClass="mt-6"
         />
         <PasswordInput
-          onChange={onChange}
+          onChange={e => handleChange(e)}
           value={values.password}
           name={"password"}
           extraClass="mt-6"

@@ -8,7 +8,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link } from "react-router-dom";
 import { registrationUser } from "../../utils/workWithApi";
-import { ChangeEvent, FormEventHandler } from "react";
+import { FormEventHandler } from "react";
 import { useForm } from "../../hooks/useForm";
 
 export default function Registration() {
@@ -19,10 +19,6 @@ export default function Registration() {
     email: "",
     password: "",
   });
-
-  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-    handleChange(e);
-  };
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = e => {
     e.preventDefault();
@@ -36,7 +32,7 @@ export default function Registration() {
         <Input
           type={"text"}
           placeholder={"Имя"}
-          onChange={onChange}
+          onChange={e => handleChange(e)}
           value={values.name}
           name={"name"}
           error={false}
@@ -45,14 +41,14 @@ export default function Registration() {
           extraClass="mt-6"
         />
         <EmailInput
-          onChange={onChange}
+          onChange={e => handleChange(e)}
           value={values.email}
           name={"email"}
           isIcon={false}
           extraClass="mt-6"
         />
         <PasswordInput
-          onChange={onChange}
+          onChange={e => handleChange(e)}
           value={values.password}
           name={"password"}
           extraClass="mt-6"
