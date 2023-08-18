@@ -19,3 +19,13 @@
 .link:first-of-type {
   margin: 0;
 }
+
+.loader {
+  margin: 0;
+  padding: 0;
+  min-height: 40vh;
+  min-width: 50vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
