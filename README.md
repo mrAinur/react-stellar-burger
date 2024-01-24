@@ -25,5 +25,5 @@
 
 ### Обратная связь для вопросов и пожеланий
 Вы всегда можете связаться со мной:
-1. <a href="https://t.me/MrAinur" target="_blank"><img src="https://otradakhb.ru/templates/otrada/images/telegram.jpg" height="20px"/></a>.
+1. В telegram <https://t.me/MrAinur>.
 2. По почте mr.ainur.02@mail.ru
